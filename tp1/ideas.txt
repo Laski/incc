@@ -1,0 +1,35 @@
+Motivación:
+===========
+
+Analizar el algoritmo de reconocimiento de combinaciones de cartas (aka manos)
+ en el juego de truco.
+
+Algunas consideraciones:
+========================
+
+Hay manos en las que es más fácil reconocer al ganador. (DOH) 
+Existe un algoritmo O(1) para detectar quién ganó que consiste en mirar la
+ última ronda, el que gana esa ronda gana (esto es así ya que si no la mano 
+hubiera terminado antes).
+El algoritmo anterior no se cumple cuando hay parda en la 3ra ronda.
+
+Para mitigar los efectos del algoritmo anteriormente descripto hemos 
+añadido ciertos condimentos:
+
+ - Mostramos las 6 cartas siempre, aunque haya terminado en la 2da ronda. 
+ - Incorporamos manos menos comunes y "molestas" de leer en base a nuestra
+intuición: Manos con parda en 1ra y 2da, manos con parda en la 2da, etc...
+ 
+
+Primeramente hemos analizado en cada sujeto su facilidad para detectar la 
+diferencia de valores en las cartas, para esto se le presentaron XX pares, 
+y de sobre las que indicó correctamente cual era la ganadora se promedió el 
+tiempo de respuesta.
+
+Esto nos permitió descartar el experimento la mayor o menor experiencia 
+de los sujetos jugando al truco.
+
+
+
+
+
