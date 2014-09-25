@@ -1,0 +1,110 @@
+Motivación:
+===========
+
+Analizar el algoritmo de reconocimiento de combinaciones de cartas (aka manos)
+en el juego de truco.
+
+Algunas consideraciones:
+========================
+
+Hay manos en las que es más fácil reconocer al ganador. (DOH) 
+Existe un algoritmo óptimo para detectar quién ganó que consiste en mirar las dos
+últimas cartas reveladas (UCR) y el que gana esa ronda gana (esto es así ya que
+si no la mano hubiera terminado antes).
+
+Dicho esto nuestro interés principal era detectar si la gente aplicaba
+esta técnica al reconocer al ganador de una mano dada. Para ello utilizamos las
+siguientes ideas:
+
+ - Mostramos las 6 cartas siempre, aunque haya terminado en la 2da ronda. 
+ - Incorporamos manos menos comunes y "molestas" de leer en base a nuestra
+intuición: manos con parda en 1ra y 2da, manos con parda en la 2da, etc...
+
+[Primeramente hemos analizado en cada sujeto su facilidad para detectar la 
+diferencia de valores en las cartas, para esto se le presentaron XX pares, 
+y entre las que indicó correctamente cuál era la ganadora se promedió el 
+tiempo de respuesta (descartando las N primeras).]
+
+Esto nos permitió tener en cuenta el experimento la mayor o menor experiencia 
+de los sujetos jugando al truco.
+
+Luego de esto se puso a prueba al sujeto con dos grupos de manos posibles.
+Las manos "fáciles" que incluian manos decidibles utilizando el algoritmo UCR.
+
+Para cada caso a estudiar variamos la distancia entre las cartas (ganadora vs
+perdedora).
+
+Opciones y ejemplos:
+====================
+- Mostrar solo las cartas que se jugaron (fácil, el algoritmo UCR funciona)
+1E 1B
+7E -
+-  -
+
+1B 1E
+7E 7O
+RC SC
+
+- Mostrar las cartas completas de las manos que se jugaron (fácil también)
+1E 1B
+7E 7O	# perdió pero mostró
+-  -
+
+- Mostrar todas las cartas, incluso si no se jugaron (difícil)
+1E 1B
+7E 6C	# izquierda ya ganó 
+RO 7O
+
+Otro eje de dificultad: pardas
+- No hubo pardas (fácil, no hay que hacer backtracking alguno):
+1B 1E
+7E 7O
+RC SC
+*
+
+- Parda en la primera (fácil porque el algoritmo UCR funciona):
+4E 4O
+1E 1B
+-  -
+*
+
+-Parda en primera y segunda (idem arriba):
+4E 4O
+5E 5O
+7E 5C
+*
+
+-Parda en segunda (difícil):
+1E 1B
+4E 4C
+-  -
+*
+
+Parda en tercera (difícil):
+1E 1B
+4C 5B
+RO RC
+*
+
+Hipótesis:
+==========
+Los individuos comenzarán mirando las seis (o menos) cartas para resolver el
+problema, y en algún momento aprenderán a mirar solamente la última ronda
+(aplicar el algoritmo UCR). Como la simple disminución en los tiempos de
+respuesta no es prueba suficiente de esto (porque podría reflejar simple
+acostumbramiento a la tarea) ideamos otras formas de probarlo.
+
+Si le mostramos todas las cartas cuando en realidad la mano terminó en la
+segunda, y la tercera ronda la ganó quien perdió la mano, una respuesta
+equivocada reflejaría la utilización del algoritmo UCR.
+
+
+
+Preguntas:
+==========
+Con qué énfasis dar la información de que las manos pueden no ser realistas.
+
+
+
+Una opción es empezar mostrando manos con cartas tapadas cuando se gana en la 
+segunda, manos enteras 
