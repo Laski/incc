@@ -14,3 +14,8 @@ mywin.update()
 
 #pause, so you get a chance to see it!
 #core.wait(0.000001)
+
+def print_cards(window, img1, img2, img3, img4, img5, img6):
+    #imprime las cartas en orden en window
+    pass
+
