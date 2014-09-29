@@ -28,6 +28,16 @@ tiempo de respuesta (descartando las N primeras).]
 Esto nos permitió tener en cuenta el experimento la mayor o menor experiencia 
 de los sujetos jugando al truco.
 
+% Con estos datos vamos a hacer un gráfico del tiempo de respuesta en función de los trials. Para eso hay que
+asociarle un error al tiempo de respuesta, que tiene que ser el del cronómetro de la computadora o del programa,
+no se cómo funciona eso. Teniendo todo eso, se hace un ajuste lineal y la pendiente de la recta es el tiempo de
+respuesta promedio de una persona.
+
+Lo siguiente es definir el número de trials. Considerando que alguien puede tardar entre 1 y 2 segundos en responder
+qué carta es mayor, yo propongo 60 trials. Además seguramente los primeros 10 al menos va a haber que tirarlos porque
+en los primeros va a tardar más. Y también hay que tener en cuenta que se puede equivocar, como mucho, 10 veces, nos 
+quedarían 40 datos. Y todo esto llevaría entre 2 y 3 minutos.
+
 Luego de esto se puso a prueba al sujeto con dos grupos de manos posibles.
 Las manos "fáciles" que incluian manos decidibles utilizando el algoritmo UCR.
 
@@ -85,6 +95,14 @@ Parda en tercera (difícil):
 4C 5B
 RO RC
 *
+
+%Tenemos en total 7 ejemplos distintos y para cada una hay que usar por un lado cartas con valores parecidos y por 
+otro valores distintos.
+Si suponemos que una persona tarda entre 3 y 5 segundos en responder una opción sería hacer 20 trials de cada ejemplo
+(con 10 de valores parecidos y 10 de valores más lejanos), es decir 140 trials que llevaría entre 7 y 12 minutos. 
+Hay que tener en cuenta que se puede equivocar y nos tenemos que quedar sólo con las correctas.
+Igual estos números los podríamos consultar con Diego ya que no tengo idea cuál es un buen número.
+
 
 Hipótesis:
 ==========
