@@ -3,6 +3,35 @@
 VALORES = range(1,8) + ['S', 'C', 'R']
 PALOS = ('O', 'C', 'E', 'B')
 POSIBLES_GANADORES = IZQUIERDA, DERECHA, PARDA = range(3)
+RANDOM = 0
+
+'''
+GRUPO (-1, -1, -1): Sin clasificar.
+GRUPO (x, y, z):
+    x:
+        0: manos de 2 rondas tapando las no jugadas
+        1: manos de 3 rondas donde todas se jugaron
+        2: manos de dos rondas con tercer mano engañosa
+    y:
+        0: sin pardas
+        1: con parada en la primera o segunda
+        2: con parda en la tercera
+        3: parda en todas
+
+        Pardas:
+            0 0 0 -> 0
+            0 0 1 -> 2
+            0 1 0 -> 1 y la dificultad depende de x
+            0 1 1 -> 1 
+            1 0 0 -> 1 y la dificultad depende de x
+            1 0 1 -> 1 y la dificultad depende de x
+            1 1 0 -> 2
+            1 1 1 -> 3
+    z:
+        0: no peleada (grupos distintos)
+        1: una mano peleada (cartas enfrentadas del mismo grupo)
+        2: varias manos peleadas (cartas enfrentadas del mismo grupo)
+'''
 
 class Carta:
     def __init__(self, valor, palo):
@@ -10,6 +39,9 @@ class Carta:
         self.palo = palo
         
     def __str__(self):
+        return str(self.valor)+str(self.palo)
+
+    def img_filename(self, dirname):
         if self.palo == 'O':
             palo_str = 'oros'
         elif self.palo == 'C':
@@ -26,10 +58,7 @@ class Carta:
             valor_str = '12'
         else:
             valor_str = str(self.valor)
-        return palo_str+'_'+valor_str+'.jpg'
-
-    def img_filename(self, dirname):
-        return dirname+'/'+str(self)
+        return dirname+'/'+palo_str+'_'+valor_str+'.jpg'
 
     @property
     def fuerza(self):
@@ -68,7 +97,10 @@ SIETE_ORO       = [Carta(7, 'O')]
 SIETE_ESPADA    = [Carta(7, 'E')]
 ANCHO_BASTO     = [Carta(1, 'B')]
 ANCHO_ESPADA    = [Carta(1, 'E')]
-CARTAS_EN_ORDEN = (CUATROS, CINCOS, SEIS, SIETES_FALSOS, SOTAS, CABALLOS, REYES, ANCHOS_FALSOS, DOS, TRES, SIETE_ORO, SIETE_ESPADA, ANCHO_BASTO, ANCHO_ESPADA)
+CARTAS_BAJAS    = [CUATROS, CINCOS, SEIS, SIETES_FALSOS]
+CARTAS_MEDIAS   = [SOTAS, CABALLOS, REYES, ANCHOS_FALSOS]
+CARTAS_ALTAS    = [DOS, TRES, SIETE_ORO, SIETE_ESPADA, ANCHO_BASTO, ANCHO_ESPADA]
+CARTAS_EN_ORDEN = [CUATROS, CINCOS, SEIS, SIETES_FALSOS, SOTAS, CABALLOS, REYES, ANCHOS_FALSOS, DOS, TRES, SIETE_ORO, SIETE_ESPADA, ANCHO_BASTO, ANCHO_ESPADA]
 
 
 class Mazo:     # hará falta?
@@ -88,7 +120,7 @@ class Ronda:
         self.carta_izq = carta_izq
         self.carta_der = carta_der
 
-    def quien_gana():
+    def quien_gana(self):
         if self.carta_izq > self.carta_der:
             return IZQUIERDA
         elif self.carta_der > self.carta_izq:
@@ -96,13 +128,16 @@ class Ronda:
         else:
             return PARDA
 
+    def __str__(self):
+        return str(self.carta_izq) + " vs " + str(self.carta_der)
 
 class Mano:
-    def __init__(self, ronda1, ronda2, ronda3):
+    def __init__(self, ronda1, ronda2, ronda3, grupo=RANDOM):
         self.rondas = (ronda1, ronda2, ronda3)
+        self.grupo = grupo
 
     def quien_gana(self):
-        ganador_por_mano = (ganador1, ganador2, ganador3) = (ronda.quien_gana() for ronda in self.rondas)
+        ganador_por_mano = [ganador1, ganador2, ganador3] = [ronda.quien_gana() for ronda in self.rondas]
         for jugador in (IZQUIERDA, DERECHA):
             if ganador_por_mano.count(jugador) >= 2:
                 return jugador
@@ -122,6 +157,20 @@ class Mano:
             # la primera no fue parda pero alguna otra sí, gana primera
             return ganador1
 
+    def se_gano_en_la_segunda_ronda(self):
+        ganador1, ganador2, ganador3 = [ronda.quien_gana() for ronda in self.rondas]
+        if ganador1 == ganador2 != PARDA:
+            return True
+        elif ganador1 == PARDA and ganador2 != PARDA:
+            return True
+        elif ganador2 == PARDA and ganador1 != PARDA:
+            return True
+        else:
+            return False
+
+    def __str__(self):
+        ronda1, ronda2, ronda3 = self.rondas
+        return str(self.grupo) + ": " + str(ronda1) + ", " + str(ronda2) + ", " + str(ronda3)
 
 def test():
     for carta in Mazo().cartas:
