@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from psychopy import visual, core, event  # import some libraries from PsychoPy
 
-import cartas
+from cartas import *
 
 # #create a window
 # mywin = visual.Window([800,600], monitor="testMonitor", units="deg")
@@ -30,35 +30,80 @@ class Experimento:
         pass
 
 
-class Mostrador:
+class Dibujador:
     def __init__(self):
         self.window = visual.Window([1024,768], monitor="testMonitor", units='cm')
-        #self.window = visual.Window(fullscr=True, monitor="testMonitor", units='cm')
+        self.x_izq = -4
+        self.x_der = 4
+        self.y1 = 7
+        self.y2 = 12
+        self.y3 = 17
 
+    def dibujar_dos(self, imgs_izq_y_der, y=7):
+        img_izq, img_der = imgs_izq_y_der
+        stim_izq = self.filename_to_stim(img_izq, self.x_izq, y)
+        stim_der = self.filename_to_stim(img_der, self.x_der, y)
+        stim_izq.draw()
+        stim_der.draw()
 
-    def imprimir_cartas(imgs1y2, imgs3y4, imgs5y6):
-        #imprime las cartas en orden en window
+    def dibujar_seis(self, imgs1y2, imgs3y4, imgs5y6):
         img1, img2 = imgs1y2
         img3, img4 = imgs3y4
         img5, img6 = imgs5y6
+        mostrar_dos_cartas(img1, img2, self.y1)
+        mostrar_dos_cartas(img3, img4, self.y2)
+        mostrar_dos_cartas(img5, img5, self.y3)
+
+    def filename_to_stim(self, filename, x, y):
+        return visual.ImageStim(self.window, filename, pos=(x, y))
+
+    def flip(self):
+        self.window.flip()
+
+
+class MostradorCartas:
+    def __init__(self, dibujador):
+        self.dibujador = dibujador
+
+    def mostrar_mano(self, mano):
+        filenames = []
+        for ronda in mano.rondas:
+            filenames.append(self.ronda_to_filenames(ronda))
+        img1y2, img2y3, img5y6 = filenames
+        self.dibujador.dibujar_seis(img1y2, img2y3, img5y6)
+        self.flip()
+
+    def mostrar_ronda(self, ronda):
+        img_izq_y_der = self.ronda_to_filenames(ronda)
+        self.dibujador.dibujar_dos(img_izq_y_der)
+        self.flip()
+
+    def ronda_to_filenames(self, ronda):
+        izq = ronda.carta_izq
+        der = ronda.carta_der
+        img_izq = izq.img_filename('cartas')
+        img_der = der.img_filename('cartas')
+        return (img_izq, img_der)
+
+    def flip(self):
+        return self.dibujador.flip()
 
 
 def test():
-    mostrador = Mostrador()
+    dibujador = Dibujador()
+    mostrador = MostradorCartas(dibujador)
+    carta_izq = ANCHO_ESPADA[0]
+    carta_der = ANCHO_BASTO[0]
+    ronda = Ronda(carta_izq, carta_der)
+    mostrador.mostrar_ronda(ronda)
 
-    izq = visual.ImageStim(mostrador.window, 'cartas/bastos_1.jpg', pos=(-4, 7) )
-    der = visual.ImageStim(mostrador.window, 'cartas/espadas_1.jpg', pos=(4, 7) )
-    izq.draw()
-    der.draw()
     clock = core.Clock()
-    mostrador.window.flip()
     clock.reset()
     core.wait(3)
-
-    keypresses = event.getKeys(None,clock)
-    #mostrador.imprimir_cartas(par1, par2, par3)
-    mostrador.window.close()
+    keypresses = event.getKeys(None, clock)
+    dibujador.window.close()
     print keypresses
 
-test()
+if __name__ == '__main__':
+    test()
 

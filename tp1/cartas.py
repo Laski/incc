@@ -10,27 +10,26 @@ class Carta:
         self.palo = palo
         
     def __str__(self):
-        if palo == 'O':
+        if self.palo == 'O':
             palo_str = 'oros'
-        elif palo == 'C':
+        elif self.palo == 'C':
             palo_str = 'copas'
-        elif palo == 'E':
+        elif self.palo == 'E':
             palo_str = 'espadas'
-        elif palo == 'B':
+        elif self.palo == 'B':
             palo_str = 'bastos'
-        if valor == 'S':
+        if self.valor == 'S':
             valor_str = '10'
-        elif valor == 'C':
+        elif self.valor == 'C':
             valor_str = '11'
-        elif valor == 'R':
+        elif self.valor == 'R':
             valor_str = '12'
         else:
-            valor = str(valor)
+            valor_str = str(self.valor)
         return palo_str+'_'+valor_str+'.jpg'
 
-    @property
     def img_filename(self, dirname):
-        return dirname+str(self)
+        return dirname+'/'+str(self)
 
     @property
     def fuerza(self):
@@ -55,26 +54,33 @@ class Carta:
         return self.fuerza < other.fuerza
 
 
-CUATROS = (Carta(4, palo) for palo in PALOS)
-CINCOS = (Carta(5, palo) for palo in PALOS)
-SEIS = (Carta(6, palo) for palo in PALOS)
-SIETES_FALSOS = (Carta(7, 'C'), Carta(7, 'B'))
-SOTAS = (Carta('S', palo) for palo in PALOS)
-CABALLOS = (Carta('C', palo) for palo in PALOS)
-REYES = (Carta('R', palo) for palo in PALOS)
-ANCHOS_FALSOS = (Carta(1, 'O'), Carta(1, 'C'))
-DOS = (Carta(2, palo) for palo in PALOS)
-TRES = (Carta(3, palo) for palo in PALOS)
-SIETE_ORO = (Carta(7, 'O'))
-SIETE_ESPADA = (Carta(7, 'E'))
-ANCHO_BASTO = (Carta(1, 'B'))
-ANCHO_ESPADA = (Carta(1, 'E'))
+CUATROS         = [Carta(4, palo) for palo in PALOS]
+CINCOS          = [Carta(5, palo) for palo in PALOS]
+SEIS            = [Carta(6, palo) for palo in PALOS]
+SIETES_FALSOS   = [Carta(7, 'C'), Carta(7, 'B')]
+SOTAS           = [Carta('S', palo) for palo in PALOS]
+CABALLOS        = [Carta('C', palo) for palo in PALOS]
+REYES           = [Carta('R', palo) for palo in PALOS]
+ANCHOS_FALSOS   = [Carta(1, 'O'), Carta(1, 'C')]
+DOS             = [Carta(2, palo) for palo in PALOS]
+TRES            = [Carta(3, palo) for palo in PALOS]
+SIETE_ORO       = [Carta(7, 'O')]
+SIETE_ESPADA    = [Carta(7, 'E')]
+ANCHO_BASTO     = [Carta(1, 'B')]
+ANCHO_ESPADA    = [Carta(1, 'E')]
 CARTAS_EN_ORDEN = (CUATROS, CINCOS, SEIS, SIETES_FALSOS, SOTAS, CABALLOS, REYES, ANCHOS_FALSOS, DOS, TRES, SIETE_ORO, SIETE_ESPADA, ANCHO_BASTO, ANCHO_ESPADA)
 
 
 class Mazo:     # hará falta?
     def __init__(self):
         self.cartas = [Carta(valor, palo) for valor in VALORES for palo in PALOS]
+        self.cartas.sort(key=lambda carta: carta.fuerza)
+
+    def __str__(self):
+        res = ''
+        for carta in self.cartas:
+            res += str(carta) + '\n'
+        return res
 
 
 class Ronda:
@@ -93,9 +99,6 @@ class Ronda:
 
 class Mano:
     def __init__(self, ronda1, ronda2, ronda3):
-        self.ronda1 = ronda1
-        self.ronda2 = ronda2
-        self.ronda3 = ronda3
         self.rondas = (ronda1, ronda2, ronda3)
 
     def quien_gana(self):
@@ -119,5 +122,12 @@ class Mano:
             # la primera no fue parda pero alguna otra sí, gana primera
             return ganador1
 
-    def rondas_ganadas_por(self, jugador):
-        return len([None for ronda in self.rondas if ronda.quien_gana() == jugador])
+
+def test():
+    for carta in Mazo().cartas:
+        assert Carta(1, 'E') > carta or carta == Carta(1, 'E')
+        assert Carta(4, 'E') < carta or carta.valor == 4
+
+
+if __name__ == "__main__":
+    test()
