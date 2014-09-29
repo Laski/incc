@@ -1,4 +1,5 @@
- # -*- coding: utf-8 -*-
+#!/usr/bin/python2
+# -*- coding: utf-8 -*-
 from psychopy import visual, core  # import some libraries from PsychoPy
 
 import cartas
