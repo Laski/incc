@@ -22,7 +22,40 @@ RONDAS_PATOLOGICAS = [
 ]
 
 
+
+
+'''
+GRUPO (-1, -1, -1): Sin clasificar.
+GRUPO (x, y, z):
+    x:
+        0: manos de 2 o 3 rondas tapando las no jugadas
+        1: manos de 3 rondas donde la mano termino en la segunda, y la tercera ronda la ganó el que ganó la mano 
+        2: manos de 3 rondas donde la mano termino en la segunda, y la tercera ronda la ganó el que perdió la mano  <== GRUPO 1
+    y:
+        0: sin pardas
+        1: con parda en la primera o la segunda
+        2: con parda en la tercera
+        3: parda en todas
+
+        Pardas:
+            0 0 1 -> 2 
+            1 1 0 -> 2
+            1 1 1 -> 3
+    z:
+        0: no peleada (grupos distintos)
+        1: una mano peleada (cartas enfrentadas del mismo grupo)
+        2: varias manos peleadas (cartas enfrentadas del mismo grupo)
+'''
+
+
 MANOS_PATOLOGICAS = [
+'''
+El siguiente grupo de manos termina siempre
+ en la 2da ronda pero en la tercera el que 
+ perdió tiene una carta más alta. 
+ Ideales para mostrar sin tapar.
+'''
+
     Mano(Ronda(Carta(2, 'C'), Carta(3, 'C')),
          Ronda(Carta(1, 'O'), Carta(7, 'O')),
          Ronda(Carta(3, 'O'), Carta(5, 'O')),

@@ -5,33 +5,6 @@ PALOS = ('O', 'C', 'E', 'B')
 POSIBLES_GANADORES = IZQUIERDA, DERECHA, PARDA = range(3)
 RANDOM = 0
 
-'''
-GRUPO (-1, -1, -1): Sin clasificar.
-GRUPO (x, y, z):
-    x:
-        0: manos de 2 o 3 rondas tapando las no jugadas
-        1: manos de 3 rondas donde la mano termino en la segunda, y la tercera ronda la ganó el que ganó la mano
-        2: manos de 3 rondas donde la mano termino en la segunda, y la tercera ronda la ganó el que perdió la mano
-    y:
-        0: sin pardas
-        1: con parda en la primera o la segunda
-        2: con parda en la tercera
-        3: parda en todas
-
-        Pardas:
-            0 0 0 -> 0
-            0 0 1 -> 2
-            0 1 0 -> 1 y la dificultad depende de x
-            0 1 1 -> 1 
-            1 0 0 -> 1 y la dificultad depende de x
-            1 0 1 -> 1 y la dificultad depende de x
-            1 1 0 -> 2
-            1 1 1 -> 3
-    z:
-        0: no peleada (grupos distintos)
-        1: una mano peleada (cartas enfrentadas del mismo grupo)
-        2: varias manos peleadas (cartas enfrentadas del mismo grupo)
-'''
 
 class Carta:
     def __init__(self, valor, palo):
