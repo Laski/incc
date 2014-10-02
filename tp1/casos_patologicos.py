@@ -22,7 +22,10 @@ RONDAS_PATOLOGICAS = [
 ]
 
 
-
-
-
-
+MANOS_PATOLOGICAS = [
+    Mano(Ronda(Carta(5, 'C'), Carta(7, 'B')),
+         Ronda(Carta(5, 'C'), Carta(7, 'B')),
+         Ronda(Carta(5, 'C'), Carta(7, 'B')),
+         1),
+    Mano...
+]

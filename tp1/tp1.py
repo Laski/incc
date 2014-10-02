@@ -3,6 +3,7 @@
 import random
 from psychopy import visual, core, event  # import some libraries from PsychoPy
 from cartas import *
+from casos_patologicos import *
 
 INCORRECTO, CORRECTO = range(2)
 
@@ -25,9 +26,9 @@ class Dibujador:
         self.window = visual.Window(fullscr=True, monitor="testMonitor", units='cm', color=VERDE)
         self.x_izq = -4
         self.x_der = 4
-        self.y1 = 7
+        self.y1 = 5
         self.y2 = 0
-        self.y3 = -7
+        self.y3 = -5
         self.y_unica = 0
 
     def dibujar_dos(self, imgs_izq_y_der, y=None):
@@ -67,13 +68,13 @@ class MostradorCartas:
         self.dibujador = Dibujador()
         self.dorso = 'cartas/dorso.jpg'
 
-    def mostrar_mano(self, mano, facil=True):
+    def mostrar_mano(self, mano):
         filenames = []
         ronda1, ronda2, ronda3 = mano.rondas
         for ronda in mano.rondas:
             filenames.append(self.ronda_to_filenames(ronda))
         img1y2, img2y3, img5y6 = filenames
-        if facil and mano.se_gano_en_la_segunda_ronda():
+        if mano.tengo_que_tapar_tercera():
             img5y6 = (self.dorso, self.dorso)
         self.dibujador.dibujar_seis(img1y2, img2y3, img5y6)
         self.flip()
@@ -128,10 +129,10 @@ class Experimento:
         key, time = event.waitKeys(keyList=('left', 'right'), timeStamped=self.clock)[0]
         if (key == 'left' and ganador == IZQUIERDA) or (key == 'right' and ganador == DERECHA):
             self.mostrador.mostrar_tick()
-            return CORRECTO, str(cartas), time
+            return CORRECTO, cartas.grupo, str(cartas), time
         else:
             self.mostrador.mostrar_cross()
-            return INCORRECTO, str(cartas), time
+            return INCORRECTO, cartas.grupo, str(cartas), time
 
     def cartas_al_azar(self, cant):
         todas = self.mazo.cartas[:]
@@ -146,7 +147,6 @@ class Experimento:
         return res
 
     def varias_al_azar(self, cant):
-        self.mostrar_dorsos()
         resultados = []
         for i in range(cant):
             resultados.append(self.mostrar_al_azar())
@@ -158,7 +158,23 @@ class Experimento:
     def mostrar_al_azar(self):
         ''' Abstracto '''
         raise NotImplemented("Mostrar al azar")
-        
+
+    def descanso(self):
+        self.mostrar_dorsos()
+
+    def ejecutar(self, cant_tandas, tests_por_tanda, instancias_especificas):
+        resultados = []
+        tandas = []
+        primer_tanda = [self.cartas_al_azar() for i in(tests_por_tanda)]
+        tandas.append(primer_tanda)     # la primer tanda no tiene instancias especificas
+        instancias_faltantes = (cant_tandas-1)*tests_por_tanda+instancias_especificas
+        for i in range(instancias_faltantes):
+            instancias = 
+        for tanda in tandas:
+            self.descanso()
+            resultados += self.varias_al_azar(tests_por_tanda)
+            resultados.append("Descanso")
+        print(resultados)        
 
 
 class Experimento1(Experimento):
@@ -189,30 +205,16 @@ class Experimento2(Experimento):
         mano = self.mano_al_azar()
         return self.mostrar_y_tomar_tiempo(mano)
 
-def test():
-    dibujador = Dibujador()
-    mostrador = MostradorCartas(dibujador)
-    carta_izq = ANCHO_ESPADA[0]
-    carta_der = ANCHO_BASTO[0]
-    ronda = Ronda(carta_izq, carta_der)
-    clock = core.Clock()
-    mostrador.mostrar_ronda(ronda)
-    clock.reset()
-    keypresses = event.waitKeys(keyList=('left', 'right'), timeStamped=clock)
-    dibujador.window.close()
-    print keypresses
-
-def exp1():
+def exp1(rondas_especificas):
     exp = Experimento1()
-    resultados = []
-    for i in range(1):
-        resultados += exp.varias_al_azar(50)
-    print(resultados)
+    exp.ejecutar(4, 1, rondas_especificas)
     
-def exp2():
+def exp2(manos_especificas):
     exp = Experimento2()
-    print(exp.varias_al_azar(50))
+    exp.ejecutar(4, 1, manos_especificas)
+
 
 if __name__ == '__main__':
-    exp2()
+    exp1(RONDAS_PATOLOGICAS)
+    exp2(MANOS_PATOLOGICAS)
 
