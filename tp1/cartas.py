@@ -9,12 +9,12 @@ RANDOM = 0
 GRUPO (-1, -1, -1): Sin clasificar.
 GRUPO (x, y, z):
     x:
-        0: manos de 2 rondas tapando las no jugadas
-        1: manos de 3 rondas donde todas se jugaron
-        2: manos de dos rondas con tercer mano engañosa
+        0: manos de 2 o 3 rondas tapando las no jugadas
+        1: manos de 3 rondas donde la mano termino en la segunda, y la tercera ronda la ganó el que ganó la mano
+        2: manos de 3 rondas donde la mano termino en la segunda, y la tercera ronda la ganó el que perdió la mano
     y:
         0: sin pardas
-        1: con parada en la primera o segunda
+        1: con parda en la primera o la segunda
         2: con parda en la tercera
         3: parda en todas
 
@@ -116,9 +116,10 @@ class Mazo:     # hará falta?
 
 
 class Ronda:
-    def __init__(self, carta_izq, carta_der):
+    def __init__(self, carta_izq, carta_der, grupo=0):
         self.carta_izq = carta_izq
         self.carta_der = carta_der
+        self.grupo = grupo
 
     def quien_gana(self):
         if self.carta_izq > self.carta_der:
@@ -130,10 +131,12 @@ class Ronda:
 
     def __str__(self):
         return str(self.carta_izq) + " vs " + str(self.carta_der)
+        
 
 class Mano:
-    def __init__(self, ronda1, ronda2, ronda3, grupo=RANDOM):
+    def __init__(self, ronda1, ronda2, ronda3, tapar=True, grupo=0):
         self.rondas = (ronda1, ronda2, ronda3)
+        self.tapar = tapar
         self.grupo = grupo
 
     def quien_gana(self):
@@ -157,6 +160,12 @@ class Mano:
             # la primera no fue parda pero alguna otra sí, gana primera
             return ganador1
 
+    def tengo_que_tapar_tercera(self):
+        if not self.tapar:   # si la mano es patologica se muestran todas las cartas siempre
+            return False
+        else:
+            return self.se_gano_en_la_segunda_ronda()
+
     def se_gano_en_la_segunda_ronda(self):
         ganador1, ganador2, ganador3 = [ronda.quien_gana() for ronda in self.rondas]
         if ganador1 == ganador2 != PARDA:
@@ -170,7 +179,17 @@ class Mano:
 
     def __str__(self):
         ronda1, ronda2, ronda3 = self.rondas
-        return str(self.grupo) + ": " + str(ronda1) + ", " + str(ronda2) + ", " + str(ronda3)
+        return str(ronda1) + ", " + str(ronda2) + ", " + str(ronda3)
+
+
+def carta_from_string(str):
+    pass
+
+def ronda_from_string(str):
+    pass
+
+def mano_from_string(str):
+    pass
 
 def test():
     for carta in Mazo().cartas:
