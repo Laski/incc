@@ -5,20 +5,6 @@ from psychopy import visual, core, event  # import some libraries from PsychoPy
 from cartas import *
 
 INCORRECTO, CORRECTO = range(2)
-# #create a window
-# mywin = visual.Window([800,600], monitor="testMonitor", units="deg")
-
-# #create some stimuli
-# grating = visual.GratingStim(win=mywin, mask="circle", size=3, pos=[-4,0], sf=3)
-# fixation = visual.GratingStim(win=mywin, size=0.5, pos=[0,0], sf=0, rgb=-1)
-
-# #draw the stimuli and update the window
-# grating.draw()
-# fixation.draw()
-# mywin.update()
-
-#pause, so you get a chance to see it!
-#core.wait(0.000001)
 
 VERDE = [25.0/255*2-1, 77.0/255*2-1, 30.0/255*2-1]    # los pajeros estos van de -1 a 1
 
@@ -35,7 +21,7 @@ class Experimento:
 
 class Dibujador:
     def __init__(self):
-        self.window = visual.Window([1024,768], monitor="testMonitor", units='cm', color=VERDE)
+        #self.window = visual.Window([1024,768], monitor="testMonitor", units='cm', color=VERDE)
         self.window = visual.Window(fullscr=True, monitor="testMonitor", units='cm', color=VERDE)
         self.x_izq = -4
         self.x_der = 4
@@ -153,7 +139,7 @@ class Experimento:
         for i in range(cant):
             carta = random.choice(todas)
             if cant == 2:
-                todas = [carta for carta in todas if carta.fuerza != carta_izq.fuerza]    # no muestro pardas
+                todas = [carta2 for carta2 in todas if carta2.fuerza != carta.fuerza]    # no muestro pardas
             else:
                 todas.remove(carta)
             res.append(carta)
@@ -177,7 +163,7 @@ class Experimento:
 
 class Experimento1(Experimento):
     def __init__(self):
-        super().__init__()
+        Experimento.__init__(self)
         self.cant = 2
 
     def ronda_al_azar(self):
@@ -220,13 +206,13 @@ def exp1():
     exp = Experimento1()
     resultados = []
     for i in range(1):
-        resultados += exp.rondas_al_azar(50)
-        exp.descanso()
+        resultados += exp.varias_al_azar(50)
+    print(resultados)
     
 def exp2():
     exp = Experimento2()
-    print(exp.varias_al_azar(10))
+    print(exp.varias_al_azar(50))
 
 if __name__ == '__main__':
-    exp2()
+    exp1()
 
