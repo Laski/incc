@@ -23,9 +23,49 @@ RONDAS_PATOLOGICAS = [
 
 
 MANOS_PATOLOGICAS = [
-    Mano(Ronda(Carta(5, 'C'), Carta(7, 'B')),
-         Ronda(Carta(5, 'C'), Carta(7, 'B')),
-         Ronda(Carta(5, 'C'), Carta(7, 'B')),
+    Mano(Ronda(Carta(2, 'C'), Carta(3, 'C')),
+         Ronda(Carta(1, 'O'), Carta(7, 'O')),
+         Ronda(Carta(3, 'O'), Carta(5, 'O')),
          1),
-    Mano...
+
+    Mano(Ronda(Carta('R', 'E'), Carta(3, 'E')),
+         Ronda(Carta(4, 'C'), Carta(7, 'E')),
+         Ronda(Carta(2, 'B'), Carta(5, 'B')),
+         1),
+
+    Mano(Ronda(Carta(2, 'O'), Carta(7, 'O')),
+         Ronda(Carta('C', 'B'), Carta(2, 'B')),
+         Ronda(Carta('C', 'O'), Carta(4, 'E')),
+         1),
+
+    Mano(Ronda(Carta(2, 'C'), Carta(4, 'E')),
+         Ronda(Carta(3, 'C'), Carta('S', 'C')),
+         Ronda(Carta(4, 'C'), Carta(1, 'C')),
+         1),
+
+    Mano(Ronda(Carta(7, 'O'), Carta(4, 'C')),
+         Ronda(Carta(3, 'E'), Carta(2, 'E')),
+         Ronda(Carta(6, 'B'), Carta(3, 'O')),
+         1),
+
+    Mano(Ronda(Carta(1, 'B'), Carta(3, 'E')),
+         Ronda(Carta(3, 'O'), Carta(2, 'O')),
+         Ronda(Carta(5, 'C'), Carta(2, 'C')),
+         1),
+
+    Mano(Ronda(Carta('R', 'C'), Carta(1, 'O')),
+         Ronda(Carta('R', 'E'), Carta(3, 'B')),
+         Ronda(Carta(2, 'E'), Carta(7, 'C')),
+         1),
+
+    Mano(Ronda(Carta(1, 'E'), Carta(2, 'E')),
+         Ronda(Carta(3, 'E'), Carta(3, 'O')),
+         Ronda(Carta(5, 'C'), Carta(1, 'B')),
+         1),
+
+    Mano(Ronda(Carta('R', 'B'), Carta(2, 'C')),
+         Ronda(Carta(2, 'E'), Carta(3, 'E')),
+         Ronda(Carta(2, 'O'), Carta(5, 'E')),
+         1),
+
 ]
