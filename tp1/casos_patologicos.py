@@ -1,3 +1,5 @@
+from cartas import *
+
 ''' Grupo de las rondas:
 1 -> Ancho de espada vs cualquier cosa
 2 -> Cartas buenas enfrentadas

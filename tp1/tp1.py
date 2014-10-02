@@ -230,7 +230,7 @@ def tomar_datos_y_correr_experimentos():
     sujetos = os.listdir('resultados')
     _id = max([int(sujeto) for sujeto in sujetos]) + 1
     print "Hola! Sos el jugador " + str(_id)
-    mano_habil = "NONE"
+    mano_habil = None
     while mano_habil not in ("zdZD"):
         print("¿Sos zurdo o diestro? (z/d)")
         mano_habil = raw_input()
