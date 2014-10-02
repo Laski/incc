@@ -1,6 +1,7 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 import random
+import os
 from psychopy import visual, core, event  # import some libraries from PsychoPy
 from cartas import *
 from casos_patologicos import *
@@ -26,9 +27,9 @@ class Dibujador:
         self.window = visual.Window(fullscr=True, monitor="testMonitor", units='cm', color=VERDE)
         self.x_izq = -4
         self.x_der = 4
-        self.y1 = 5
+        self.y1 = 7
         self.y2 = 0
-        self.y3 = -5
+        self.y3 = -7
         self.y_unica = 0
 
     def dibujar_dos(self, imgs_izq_y_der, y=None):
@@ -134,13 +135,13 @@ class Experimento:
             self.mostrador.mostrar_cross()
             return INCORRECTO, cartas.grupo, str(cartas), time
 
-    def cartas_al_azar(self, cant):
+    def cartas_al_azar(self):
         todas = self.mazo.cartas[:]
         res = []
-        for i in range(cant):
+        for i in range(self.cant):
             carta = random.choice(todas)
-            if cant == 2:
-                todas = [carta2 for carta2 in todas if carta2.fuerza != carta.fuerza]    # no muestro pardas
+            if self.cant == 2:
+                todas = [carta2 for carta2 in todas if carta2.fuerza != carta.fuerza]    # si es una ronda no muestro pardas
             else:
                 todas.remove(carta)
             res.append(carta)
@@ -152,29 +153,47 @@ class Experimento:
             resultados.append(self.mostrar_al_azar())
         return resultados
 
+    def mostrar_tanda(self, tanda):
+        resultados = []
+        for cartas in tanda:
+            resultados.append(self.mostrar_y_tomar_tiempo(cartas))
+        return resultados
+
     def mostrar_dorsos(self):
         self.mostrador.mostrar_dorsos(self.cant)
 
-    def mostrar_al_azar(self):
+    def instancia_al_azar(self):
         ''' Abstracto '''
-        raise NotImplemented("Mostrar al azar")
+        raise NotImplemented("Instancia al azar")
+
+    def mostrar_al_azar(self):
+        instancia = self.instancia_al_azar()
+        return self.mostrar_y_tomar_tiempo(instancia)
 
     def descanso(self):
         self.mostrar_dorsos()
 
     def ejecutar(self, cant_tandas, tests_por_tanda, instancias_especificas):
-        resultados = []
         tandas = []
-        primer_tanda = [self.cartas_al_azar() for i in(tests_por_tanda)]
+        primer_tanda = [self.instancia_al_azar() for i in range(tests_por_tanda)]
         tandas.append(primer_tanda)     # la primer tanda no tiene instancias especificas
-        instancias_faltantes = (cant_tandas-1)*tests_por_tanda+instancias_especificas
-        for i in range(instancias_faltantes):
-            instancias = 
+        
+        # mezclo instancias al azar y especificas
+        cant_instancias_faltantes = (cant_tandas-1)*tests_por_tanda-len(instancias_especificas)
+        instancias_faltantes = [self.instancia_al_azar() for i in range(cant_instancias_faltantes)]
+        instancias_faltantes += instancias_especificas
+        random.shuffle(instancias_faltantes)
+
+        for i in range(cant_tandas-1):
+            # genero una nueva tanda
+            tanda = [instancias_faltantes.pop() for j in range(tests_por_tanda)]
+            tandas.append(tanda)
+        resultados = []
         for tanda in tandas:
             self.descanso()
-            resultados += self.varias_al_azar(tests_por_tanda)
+            resultados += self.mostrar_tanda(tanda)
             resultados.append("Descanso")
-        print(resultados)        
+        return resultados
 
 
 class Experimento1(Experimento):
@@ -182,39 +201,44 @@ class Experimento1(Experimento):
         Experimento.__init__(self)
         self.cant = 2
 
-    def ronda_al_azar(self):
-        izq, der = self.cartas_al_azar(2)
+    def instancia_al_azar(self):
+        izq, der = self.cartas_al_azar()
         return Ronda(izq, der)
-
-    def mostrar_al_azar(self):
-        ronda = self.ronda_al_azar()
-        return self.mostrar_y_tomar_tiempo(ronda)
-    
+   
 
 class Experimento2(Experimento):
     def __init__(self):
         Experimento.__init__(self)
         self.cant = 6
 
-    def mano_al_azar(self):
-        izq1, der1, izq2, der2, izq3, der3 = self.cartas_al_azar(self.cant)
+    def instancia_al_azar(self):
+        izq1, der1, izq2, der2, izq3, der3 = self.cartas_al_azar()
         ronda1, ronda2, ronda3 = Ronda(izq1, der1), Ronda(izq2, der2), Ronda(izq3, der3)
         return Mano(ronda1, ronda2, ronda3)
 
-    def mostrar_al_azar(self):
-        mano = self.mano_al_azar()
-        return self.mostrar_y_tomar_tiempo(mano)
 
 def exp1(rondas_especificas):
     exp = Experimento1()
-    exp.ejecutar(4, 1, rondas_especificas)
+    return exp.ejecutar(4, 4, rondas_especificas)
     
 def exp2(manos_especificas):
     exp = Experimento2()
-    exp.ejecutar(4, 1, manos_especificas)
+    return exp.ejecutar(4, 1, manos_especificas)
 
+
+def tomar_datos_y_correr_experimentos():
+    sujetos = os.listdir('resultados')
+    _id = max([int(sujeto) for sujeto in sujetos]) + 1
+    print "Hola! Sos el jugador " + str(_id)
+    mano_habil = None
+    while mano_habil not in ("zdZD"):
+        print("¿Sos zurdo o diestro? (z/d)")
+        mano_habil = raw_input()
+    output = open('resultados/'+str(_id), 'w')
+    output.write(mano_habil+"\n")
+    output.write(str(exp1(RONDAS_PATOLOGICAS)))
+    output.write(str(exp2(MANOS_PATOLOGICAS)))
 
 if __name__ == '__main__':
-    exp1(RONDAS_PATOLOGICAS)
-    exp2(MANOS_PATOLOGICAS)
-
+    tomar_datos_y_correr_experimentos()
+    
