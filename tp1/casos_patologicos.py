@@ -1,3 +1,5 @@
+ # -*- coding: utf-8 -*-
+
 from cartas import *
 
 ''' Grupo de las rondas:
@@ -25,32 +27,40 @@ RONDAS_PATOLOGICAS = [
 
 
 
+'''
+Grupos: 
+        1 manos testigo de si mira la última o no
+        
+        2 manos "sencillas" que terminen en 2 rondas. 
+            Sencillas quiere deir con un claro ganador y todas las rondas carta alta vs baja. 
+            Idealmente Carta mejor o igual que un 2 vs más chota que un 2.
+            Hacerlas de 3 rondas que después el programa se ocupa de que la tercera se tape si no tiene sentido)
+
+        3 manos "sencillas" que terminen en 3 rondas  Idem.
+        
+        4 manos con pardas en: 3ra / 1ra y 2da / 1ra 2da y 3ra. 
+            Las rondas no pardadas con un ganador claro.
+        
+        5 manos confusas visualmente por lo chotas.
+            Muchas *figuras* jugando entre si, 7s y 1s falsos. 
+
+
+Excepto las del grupo 2 todas deberían terminar en 3 rondas.
+
+Ej. de mano en "en python" :
+
+    Mano(Ronda(Carta(3, 'E'), Carta(4, 'C')),       <--- Ronda 1: 3 de copas vs 4 copas.
+         Ronda(Carta(7, 'O'), Carta(2, 'O')),       <--- Ronda 2: 
+         Ronda(Carta('R', 'O'), Carta(6, 'E')),       <--- Ronda 3 
+         2),       <--- Grupo 2
+
+Si es una figura va 'S' 'C' o 'R' como el 'Rey' de la 3er ronda.
+Si no, va el número solo como en las dos primeras.
 
 '''
-GRUPO (-1, -1, -1): Sin clasificar.
-GRUPO (x, y, z):
-    x:
-        0: manos de 2 o 3 rondas tapando las no jugadas
-        1: manos de 3 rondas donde la mano termino en la segunda, y la tercera ronda la ganó el que ganó la mano 
-        2: manos de 3 rondas donde la mano termino en la segunda, y la tercera ronda la ganó el que perdió la mano  <== GRUPO 1
-    y:
-        0: sin pardas
-        1: con parda en la primera o la segunda
-        2: con parda en la tercera
-        3: parda en todas
-
-        Pardas:
-            0 0 1 -> 2 
-            1 1 0 -> 2
-            1 1 1 -> 3
-    z:
-        0: no peleada (grupos distintos)
-        1: una mano peleada (cartas enfrentadas del mismo grupo)
-        2: varias manos peleadas (cartas enfrentadas del mismo grupo)
-'''
-
 
 MANOS_PATOLOGICAS = [
+
 '''
 El siguiente grupo de manos termina siempre
  en la 2da ronda pero en la tercera el que 
@@ -104,3 +114,4 @@ El siguiente grupo de manos termina siempre
          1),
 
 ]
+
