@@ -40,16 +40,19 @@ Grupos:
         4 manos con pardas en: 1ra y 2da
             Las rondas no pardadas con un ganador claro.
 
-        5 manos con pardas en 3ra o 1ra 2da y 3ra:
+        5 manos con pardas en 3ra:
             Hipótesis: manos que si vas en orden son manos de 4 rondas.
 
-        6 manos "peleadas" todas con figuras.
+        6 manos con pardas en 1ra 2da y 3ra:
+            Hipótesis: manos que si vas en orden son manos de 4 rondas.
+
+        7 manos "peleadas" todas con figuras.
             todas menores a 2
 
-        7 manos "peleadas" donde salen 1s y 7s
+        8 manos 
             todas menores a 2
 
-        8 manos en donde el que perdió tenía una carta > 3.
+        9 manos en donde el que perdió tenía una carta > 3.
 
 
 
@@ -266,7 +269,59 @@ Grupo 4
          Ronda(Carta('R', 'O'), Carta('R', 'C')),
          Ronda(Carta(6, 'E'), Carta('R', 'B')),
          4), # No colgar con el grupo.
-         
+
+
+
+
+
+
+
+
+
+
+
+'''
+Grupo 7 manos "peleadas" todas con figuras.
+        todas menores a 2
+'''
+
+    Mano(Ronda(Carta('R', 'B'), Carta('S', 'E')),
+         Ronda(Carta('C', 'O'), Carta('R', 'C')),
+         Ronda(Carta('S', 'E'), Carta('C', 'B')),
+         7), # No colgar con el grupo.
+    Mano(Ronda(Carta('R', 'E'), Carta('C', 'B')),
+         Ronda(Carta('S', 'E'), Carta('R', 'B')),
+         Ronda(Carta('S', 'C'), Carta('C', 'O')),
+         7), 
+    Mano(Ronda(Carta('S', 'O'), Carta('C', 'B')),
+         Ronda(Carta('C', 'C'), Carta('R', 'C')),
+         Ronda(Carta('R', 'E'), Carta('S', 'O')),
+         7), 
+
+    Mano(Ronda(Carta('R', 'B'), Carta('S', 'C')),
+         Ronda(Carta('C', 'O'), Carta('R', 'O')),
+         Ronda(Carta('C', 'B'), Carta('S', 'O')),
+         7),
+
+    Mano(Ronda(Carta('C', 'E'), Carta('S', 'B')),
+         Ronda(Carta('C', 'C'), Carta('R', 'C')),
+         Ronda(Carta('C', 'O'), Carta('R', 'E')),
+         7),
+
+
+
+'''
+Grupo 9 manos en donde el que perdió tenía una carta > 3.
+'''
+
+    Mano(Ronda(Carta(1, 'B'), Carta('C', 'E')),
+         Ronda(Carta('R', 'E'), Carta(2, 'O')),
+         Ronda(Carta('4', 'C'), Carta(2, 'E')),
+         9,
+    Mano(Ronda(Carta('R', 'B'), Carta('C', 'E')),
+         Ronda(Carta('R', 'E'), Carta(2, 'O')),
+         Ronda(Carta('4', 'C'), Carta(2, 'E')),
+         9,
 
 
 
