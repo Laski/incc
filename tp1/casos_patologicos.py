@@ -44,12 +44,13 @@ Grupos:
         5 manos con pardas en 3ra o 1ra 2da y 3ra:
             Hipótesis: manos que si vas en orden son manos de 4 rondas.
 
-        6 manos parejas:
-            En cada ronda las dos cartas están muy cerca en la escala.
-            Sobre todo: *figuras* jugando entre si, 7s y 1s falsos. 
+        6 manos "peleadas" todas con figuras.
+            todas menores a 2
 
-        7 manos parejas sin cartas altas
-            Idem anterior pero sin cartas altas (todas < 2)
+        7 manos "peleadas" donde salen 1s y 7s
+            todas menores a 2
+
+        8 manos en donde el que perdió tenía una carta > 3.
 
 
 
@@ -124,6 +125,9 @@ El siguiente grupo de manos termina siempre
          Ronda(Carta(2, 'E'), Carta(3, 'E')),
          Ronda(Carta(2, 'O'), Carta(5, 'E')),
          1),
+
+
+
 
 ]
 
