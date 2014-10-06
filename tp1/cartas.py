@@ -8,6 +8,8 @@ RANDOM = 0
 
 class Carta:
     def __init__(self, valor, palo):
+        assert valor in VALORES
+        assert palo in PALOS
         self.valor = valor
         self.palo = palo
         

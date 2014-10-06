@@ -27,10 +27,10 @@ RONDAS_PATOLOGICAS = [
     Ronda(Carta('S', 'C'), Carta('R', 'C'), 3),
     Ronda(Carta(5, 'C'), Carta(7, 'B'), 4),
     Ronda(Carta(4, 'E'), Carta(6, 'O'), 4),
-    Ronda(Carta(4, 'C'), Carta(7, 'C'), 4)
+    Ronda(Carta(4, 'C'), Carta(7, 'C'), 4),
     Ronda(Carta(7, 'B'), Carta(4, 'O'), 4),
     Ronda(Carta(5, 'E'), Carta(6, 'B'), 4),
-    Ronda(Carta(4, 'E'), Carta(7, 'B'), 4),
+    Ronda(Carta(4, 'E'), Carta(7, 'B'), 4)
 ]
 
 
@@ -170,7 +170,7 @@ MANOS_PATOLOGICAS = [
          2), 
     Mano(Ronda(Carta(1, 'B'), Carta(6, 'B')),
          Ronda(Carta(7, 'E'), Carta('R', 'O')),
-         Ronda(Carta(7, 'B'), Carta(6, 'B')),
+         Ronda(Carta(7, 'B'), Carta(6, 'C')),
          2), 
     Mano(Ronda(Carta(3, 'O'), Carta('S', 'E')),
          Ronda(Carta(7, 'O'), Carta(4, 'C')),
@@ -207,7 +207,7 @@ MANOS_PATOLOGICAS = [
          Ronda(Carta(2, 'O'), Carta(4, 'C')),
          Ronda(Carta(3, 'E'), Carta('R', 'E')),
          3), # No colgar con el grupo.
-    Mano(Ronda(Carta(1, 'O'), Carta(1, 'E')),
+    Mano(Ronda(Carta(2, 'O'), Carta(1, 'E')),
          Ronda(Carta('R', 'B'), Carta(6, 'O')),
          Ronda(Carta('R', 'C'), Carta(7, 'E')),
          3), # No colgar con el grupo.
@@ -254,8 +254,8 @@ MANOS_PATOLOGICAS = [
          Ronda(Carta('C', 'O'), Carta(4, 'E')),
          4), # No colgar con el grupo.
     Mano(Ronda(Carta(3, 'C'), Carta(3, 'B')),
-         Ronda(Carta('C', 'E'), Carta(11, 'O')),
-         Ronda(Carta('5', 'O'), Carta(11, 'B')),
+         Ronda(Carta('C', 'E'), Carta('C', 'O')),
+         Ronda(Carta(5, 'O'), Carta('C', 'B')),
          4), # No colgar con el grupo.
     Mano(Ronda(Carta(5, 'B'), Carta(5, 'E')),
          Ronda(Carta(3, 'O'), Carta(3, 'C')),
@@ -292,25 +292,20 @@ MANOS_PATOLOGICAS = [
          Ronda(Carta(3, 'O'), Carta(3, 'B')),
          5),
     Mano(Ronda(Carta(1, 'B'), Carta('R', 'O')),
-         Ronda(Carta(2, 'C'), Carta('7', 'E')),
+         Ronda(Carta(2, 'C'), Carta(7, 'E')),
          Ronda(Carta('S', 'O'), Carta('S', 'B')),
          5),
-         
 
-
-'''
-Grupo 6
-manos con pardas en 1ra 2da y 3ra:
-Hipótesis: manos que si vas en orden son manos de 4 rondas.
-'''
-
+# Grupo 6
+# manos con pardas en 1ra 2da y 3ra:
+# Hipótesis: manos que si vas en orden son manos de 4 rondas.
     Mano(Ronda(Carta(3, 'B'), Carta(3, 'O')),
          Ronda(Carta(2, 'E'), Carta(2, 'B')),
          Ronda(Carta('R', 'O'), Carta('R', 'C')),
          6),
     Mano(Ronda(Carta(2, 'E'), Carta(2, 'O')),
          Ronda(Carta(2, 'C'), Carta(2, 'B')),
-         Ronda(Carta('6', 'O'), Carta('6', 'E')),
+         Ronda(Carta(6, 'O'), Carta(6, 'E')),
          6),
     Mano(Ronda(Carta('R', 'E'), Carta('R', 'C')),
          Ronda(Carta(3, 'C'), Carta(3, 'B')),
@@ -325,15 +320,12 @@ Hipótesis: manos que si vas en orden son manos de 4 rondas.
          Ronda(Carta(6, 'B'), Carta(6, 'C')),
          6),
 
-
-'''
-Grupo 7 manos "peleadas" todas con figuras.
-        todas menores a 2
-'''
+# Grupo 7 manos "peleadas" todas con figuras.
+# todas menores a 2
 
     Mano(Ronda(Carta('R', 'B'), Carta('S', 'E')),
          Ronda(Carta('C', 'O'), Carta('R', 'C')),
-         Ronda(Carta('S', 'E'), Carta('C', 'B')),
+         Ronda(Carta('S', 'B'), Carta('C', 'B')),
          7),
     Mano(Ronda(Carta('R', 'E'), Carta('C', 'B')),
          Ronda(Carta('S', 'E'), Carta('R', 'B')),
@@ -341,23 +333,19 @@ Grupo 7 manos "peleadas" todas con figuras.
          7), 
     Mano(Ronda(Carta('S', 'O'), Carta('C', 'B')),
          Ronda(Carta('C', 'C'), Carta('R', 'C')),
-         Ronda(Carta('R', 'E'), Carta('S', 'O')),
-         7), 
-
+         Ronda(Carta('R', 'E'), Carta('S', 'C')),
+         7),
     Mano(Ronda(Carta('R', 'B'), Carta('S', 'C')),
          Ronda(Carta('C', 'O'), Carta('R', 'O')),
          Ronda(Carta('C', 'B'), Carta('S', 'O')),
          7),
-
     Mano(Ronda(Carta('C', 'E'), Carta('S', 'B')),
          Ronda(Carta('C', 'C'), Carta('R', 'C')),
          Ronda(Carta('C', 'O'), Carta('R', 'E')),
          7),
 
 
-'''
-Grupo 8 manos con 7 falsos.
-'''
+# Grupo 8 manos con 7 falsos.
 
     Mano(Ronda(Carta(3, 'O'), Carta(1, 'E')),
          Ronda(Carta(2, 'E'), Carta('R', 'B')),
@@ -380,9 +368,7 @@ Grupo 8 manos con 7 falsos.
          Ronda(Carta(7, 'B'), Carta(3, 'C')),
          8),
 
-'''
-Grupo 9 manos con 1 falsos.
-'''
+# Grupo 9 manos con 1 falsos.
 
     Mano(Ronda(Carta(1, 'O'), Carta(1, 'E')),
          Ronda(Carta('R', 'C'), Carta(5, 'B')),
@@ -406,46 +392,42 @@ Grupo 9 manos con 1 falsos.
          9),
 
 
-'''
-Grupo 10 manos en donde el que perdió tenía una carta > 3.
-'''
-
+#Grupo 10 manos en donde el que perdió tenía una carta > 3.
     Mano(Ronda(Carta(1, 'B'), Carta('C', 'E')),
          Ronda(Carta('R', 'E'), Carta(2, 'O')),
          Ronda(Carta(4, 'C'), Carta(2, 'E')),
-         10,
+         10),
     Mano(Ronda(Carta('C', 'E'), Carta('R', 'B')),
          Ronda(Carta(7, 'E'), Carta(2, 'O')),
-         Ronda(Carta('R', 'E'), Carta(2, 'O')),
-         10,
+         Ronda(Carta('R', 'E'), Carta(2, 'C')),
+         10),
     Mano(Ronda(Carta(3, 'C'), Carta(5, 'O')),
          Ronda(Carta(3, 'B'), Carta(7, 'O')),
          Ronda(Carta(2, 'C'), Carta('R', 'B')),
-         10,
+         10),
     Mano(Ronda(Carta(2, 'C'), Carta(3, 'O')),
          Ronda(Carta(1, 'E'), Carta(4, 'O')),
          Ronda(Carta('C', 'E'), Carta(2, 'E')),
-         10,
+         10),
     Mano(Ronda(Carta(7, 'E'), Carta(3, 'O')),
          Ronda(Carta(6, 'E'), Carta(2, 'O')),
          Ronda(Carta(2, 'E'), Carta(3, 'B')),
-         10,
+         10),
     Mano(Ronda(Carta(3, 'O'), Carta('R', 'C')),
          Ronda(Carta(6, 'E'), Carta(7, 'E')),
          Ronda(Carta(7, 'C'), Carta(4, 'C')),
-         10,
+         10),
     Mano(Ronda(Carta(2, 'C'), Carta(4, 'C')),
          Ronda(Carta(3, 'E'), Carta(1, 'E')),
          Ronda(Carta('R', 'E'), Carta(6, 'C')),
-         10,
+         10),
     Mano(Ronda(Carta(6, 'C'), Carta(2, 'O')),
          Ronda(Carta(7, 'E'), Carta(2, 'E')),
-         Ronda(Carta(2, 'O'), Carta(3, 'C')),
-         10,
+         Ronda(Carta(2, 'B'), Carta(3, 'C')),
+         10)
 
 
-'''
-Ojo no voletear el corchete este de acá abajo.
-'''
+#Ojo no voletear el corchete este de acá abajo.
+
 ]
 

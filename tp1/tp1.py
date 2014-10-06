@@ -5,7 +5,7 @@ import random
 import pickle
 from psychopy import visual, core, event  # import some libraries from PsychoPy
 from cartas import *
-#from casos_patologicos import *
+from casos_patologicos import *
 
 INCORRECTO, CORRECTO = range(2)
 
@@ -210,11 +210,11 @@ class Experimento2(Experimento):
 
 def exp1(rondas_especificas):
     exp = Experimento1()
-    return exp.ejecutar(1, 4, rondas_especificas)
+    return exp.ejecutar(2, 1, rondas_especificas)
     
 def exp2(manos_especificas):
     exp = Experimento2()
-    return exp.ejecutar(1, 4, manos_especificas)
+    return exp.ejecutar(2, 1, manos_especificas)
 
 
 class Resultados:
@@ -230,7 +230,7 @@ class Resultados:
         res += str(self.res_exp1) + "\n"
         res += str(self.res_exp2) + "\n"
         return res
-        
+
 
 def tomar_datos_y_correr_experimentos():
     sujetos = os.listdir('resultados')
