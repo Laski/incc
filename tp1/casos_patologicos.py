@@ -49,10 +49,11 @@ Grupos:
         7 manos "peleadas" todas con figuras.
             todas menores a 2
 
-        8 manos 
-            todas menores a 2
+        8 manos con 7 falsos
 
-        9 manos en donde el que perdió tenía una carta > 3.
+        9 manos con 1 falsos
+
+        10 manos en donde el que perdió tenía una carta > 3.
 
 
 
@@ -271,58 +272,6 @@ Grupo 4
          4), # No colgar con el grupo.
 
 
-
-
-
-
-
-
-
-
-
-'''
-Grupo 7 manos "peleadas" todas con figuras.
-        todas menores a 2
-'''
-
-    Mano(Ronda(Carta('R', 'B'), Carta('S', 'E')),
-         Ronda(Carta('C', 'O'), Carta('R', 'C')),
-         Ronda(Carta('S', 'E'), Carta('C', 'B')),
-         7), # No colgar con el grupo.
-    Mano(Ronda(Carta('R', 'E'), Carta('C', 'B')),
-         Ronda(Carta('S', 'E'), Carta('R', 'B')),
-         Ronda(Carta('S', 'C'), Carta('C', 'O')),
-         7), 
-    Mano(Ronda(Carta('S', 'O'), Carta('C', 'B')),
-         Ronda(Carta('C', 'C'), Carta('R', 'C')),
-         Ronda(Carta('R', 'E'), Carta('S', 'O')),
-         7), 
-
-    Mano(Ronda(Carta('R', 'B'), Carta('S', 'C')),
-         Ronda(Carta('C', 'O'), Carta('R', 'O')),
-         Ronda(Carta('C', 'B'), Carta('S', 'O')),
-         7),
-
-    Mano(Ronda(Carta('C', 'E'), Carta('S', 'B')),
-         Ronda(Carta('C', 'C'), Carta('R', 'C')),
-         Ronda(Carta('C', 'O'), Carta('R', 'E')),
-         7),
-
-
-
-'''
-Grupo 9 manos en donde el que perdió tenía una carta > 3.
-'''
-
-    Mano(Ronda(Carta(1, 'B'), Carta('C', 'E')),
-         Ronda(Carta('R', 'E'), Carta(2, 'O')),
-         Ronda(Carta('4', 'C'), Carta(2, 'E')),
-         9,
-    Mano(Ronda(Carta('R', 'B'), Carta('C', 'E')),
-         Ronda(Carta('R', 'E'), Carta(2, 'O')),
-         Ronda(Carta('4', 'C'), Carta(2, 'E')),
-         9,
-
 '''
 Grupo 5
 manos con pardas en 3ra:
@@ -378,6 +327,49 @@ Hipótesis: manos que si vas en orden son manos de 4 rondas.
          Ronda(Carta(6, 'B'), Carta(6, 'C')),
          6),
 
+
+'''
+Grupo 7 manos "peleadas" todas con figuras.
+        todas menores a 2
+'''
+
+    Mano(Ronda(Carta('R', 'B'), Carta('S', 'E')),
+         Ronda(Carta('C', 'O'), Carta('R', 'C')),
+         Ronda(Carta('S', 'E'), Carta('C', 'B')),
+         7), # No colgar con el grupo.
+    Mano(Ronda(Carta('R', 'E'), Carta('C', 'B')),
+         Ronda(Carta('S', 'E'), Carta('R', 'B')),
+         Ronda(Carta('S', 'C'), Carta('C', 'O')),
+         7), 
+    Mano(Ronda(Carta('S', 'O'), Carta('C', 'B')),
+         Ronda(Carta('C', 'C'), Carta('R', 'C')),
+         Ronda(Carta('R', 'E'), Carta('S', 'O')),
+         7), 
+
+    Mano(Ronda(Carta('R', 'B'), Carta('S', 'C')),
+         Ronda(Carta('C', 'O'), Carta('R', 'O')),
+         Ronda(Carta('C', 'B'), Carta('S', 'O')),
+         7),
+
+    Mano(Ronda(Carta('C', 'E'), Carta('S', 'B')),
+         Ronda(Carta('C', 'C'), Carta('R', 'C')),
+         Ronda(Carta('C', 'O'), Carta('R', 'E')),
+         7),
+
+
+
+'''
+Grupo 10 manos en donde el que perdió tenía una carta > 3.
+'''
+
+    Mano(Ronda(Carta(1, 'B'), Carta('C', 'E')),
+         Ronda(Carta('R', 'E'), Carta(2, 'O')),
+         Ronda(Carta('4', 'C'), Carta(2, 'E')),
+         10,
+    Mano(Ronda(Carta('R', 'B'), Carta('C', 'E')),
+         Ronda(Carta('R', 'E'), Carta(2, 'O')),
+         Ronda(Carta('4', 'C'), Carta(2, 'E')),
+         10,
 
 '''
 Ojo no voletear el corchete este de acá abajo.
