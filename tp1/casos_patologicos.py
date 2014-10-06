@@ -132,13 +132,104 @@ Grupo 2
     Mano(Ronda(Carta(6, 'B'), Carta(3, 'C')),
          Ronda(Carta('R', 'E'), Carta(7, 'O')),
          Ronda(Carta(5, 'B'), Carta(1, 'O')),
-         2),   # No colgar con el grupo.
+         2),   
     Mano(Ronda(Carta(2, 'O'), Carta(5, 'E')),
          Ronda(Carta('3', 'B'), Carta(10, 'C')),
          Ronda(Carta(5, 'B'), Carta(12, 'E')),
          2), 
+    Mano(Ronda(Carta(7, 'E'), Carta(12, 'O')),
+         Ronda(Carta('3', 'O'), Carta(5, 'B')),
+         Ronda(Carta(5, 'E'), Carta(12, 'B')),
+         2), 
+    Mano(Ronda(Carta(10, 'O'), Carta(1, 'E')),
+         Ronda(Carta('12', 'E'), Carta(7, 'E')),
+         Ronda(Carta(5, 'B'), Carta(10, 'E')),
+         2), 
+    Mano(Ronda(Carta(1, 'B'), Carta(5, 'C')),
+         Ronda(Carta('2', 'E'), Carta(4, 'O')),
+         Ronda(Carta(5, 'E'), Carta(4, 'B')),
+         2), 
+    Mano(Ronda(Carta(6, 'C'), Carta(1, 'E')),
+         Ronda(Carta('4', 'E'), Carta(3, 'B')),
+         Ronda(Carta(5, 'E'), Carta(6, 'B')),
+         2),
+    Mano(Ronda(Carta(11, 'E'), Carta(3, 'O')),
+         Ronda(Carta('4', 'O'), Carta(7, 'E')),
+         Ronda(Carta(4, 'B'), Carta(6, 'B')),
+         2), 
+    Mano(Ronda(Carta(7, 'O'), Carta(12, 'C')),
+         Ronda(Carta('3', 'B'), Carta(5, 'E')),
+         Ronda(Carta(7, 'B'), Carta(6, 'B')),
+         2), 
+    Mano(Ronda(Carta(1, 'B'), Carta(6, 'B')),
+         Ronda(Carta('7', 'E'), Carta(12, 'O')),
+         Ronda(Carta(7, 'B'), Carta(6, 'B')),
+         2), 
+    Mano(Ronda(Carta(3, 'O'), Carta(10, 'E')),
+         Ronda(Carta('7', 'O'), Carta(4, 'C')),
+         Ronda(Carta(7, 'C'), Carta(6, 'B')),
+         2),
+
+'''
+Grupo 3
+'''
+
+   Mano(Ronda(Carta(2, 'B'), Carta(5, 'C')),
+         Ronda(Carta('6', 'B'), Carta(7, 'E')),
+         Ronda(Carta(12, 'B'), Carta(3, 'O')),
+         3), 
+   Mano(Ronda(Carta(3, 'E'), Carta(7, 'B')),
+         Ronda(Carta('10', 'B'), Carta(2, 'O')),
+         Ronda(Carta(7, 'E'), Carta(12, 'C')),
+         3), 
+   Mano(Ronda(Carta(1, 'E'), Carta(5, 'O')),
+         Ronda(Carta('7', 'C'), Carta(3, 'B')),
+         Ronda(Carta(4, 'B'), Carta(12, 'O')),
+         3), 
+    Mano(Ronda(Carta(6, 'O'), Carta(7, 'E')),
+         Ronda(Carta('12', 'B'), Carta(4, 'C')),
+         Ronda(Carta(3, 'E'), Carta(10, 'B')),
+         3), # No colgar con el grupo.
+    Mano(Ronda(Carta(3, 'C'), Carta(12, 'E')),
+         Ronda(Carta('6', 'B'), Carta(12, 'O')),
+         Ronda(Carta(2, 'E'), Carta(4, 'B')),
+         3), # No colgar con el grupo.
+    Mano(Ronda(Carta(2, 'C'), Carta(7, 'E')),
+         Ronda(Carta('11', 'B'), Carta(6, 'C')),
+         Ronda(Carta(2, 'O'), Carta(1, 'B')),
+         3), # No colgar con el grupo.
+    Mano(Ronda(Carta(10, 'E'), Carta(3, 'B')),
+         Ronda(Carta('2', 'O'), Carta(4, 'C')),
+         Ronda(Carta(3, 'E'), Carta(12, 'E')),
+         3), # No colgar con el grupo.
+    Mano(Ronda(Carta(1, 'O'), Carta(1, 'E')),
+         Ronda(Carta('12', 'B'), Carta(6, 'O')),
+         Ronda(Carta(12, 'C'), Carta(7, 'E')),
+         3), # No colgar con el grupo.
+    Mano(Ronda(Carta(2, 'E'), Carta(5, 'B')),
+         Ronda(Carta('10', 'E'), Carta(3, 'O')),
+         Ronda(Carta(7, 'O'), Carta(11, 'C')),
+         3), # No colgar con el grupo.
+    Mano(Ronda(Carta(6, 'C'), Carta(1, 'B')),
+         Ronda(Carta('3', 'E'), Carta(10, 'O')),
+         Ronda(Carta(5, 'O'), Carta(1, 'E')),
+         3), # No colgar con el grupo.
+
+'''
+Grupo 4
+ manos con pardas en: 1ra y 2da
+            Las rondas no pardadas con un ganador claro.
+'''
 
 
+    Mano(Ronda(Carta(3, 'B'), Carta(3, 'C')),
+         Ronda(Carta('2', 'O'), Carta(2, 'E')),
+         Ronda(Carta(12, 'E'), Carta(4, 'O')),
+         4), # No colgar con el grupo.
+    Mano(Ronda(Carta(11, 'O'), Carta(11, 'B')),
+         Ronda(Carta('3', 'O'), Carta(3, 'E')),
+         Ronda(Carta(2, 'B'), Carta(5, 'C')),
+         4), # No colgar con el grupo.
 
 
 
