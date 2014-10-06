@@ -334,7 +334,7 @@ Grupo 7 manos "peleadas" todas con figuras.
     Mano(Ronda(Carta('R', 'B'), Carta('S', 'E')),
          Ronda(Carta('C', 'O'), Carta('R', 'C')),
          Ronda(Carta('S', 'E'), Carta('C', 'B')),
-         7), # No colgar con el grupo.
+         7),
     Mano(Ronda(Carta('R', 'E'), Carta('C', 'B')),
          Ronda(Carta('S', 'E'), Carta('R', 'B')),
          Ronda(Carta('S', 'C'), Carta('C', 'O')),
@@ -354,6 +354,56 @@ Grupo 7 manos "peleadas" todas con figuras.
          Ronda(Carta('C', 'O'), Carta('R', 'E')),
          7),
 
+
+'''
+Grupo 8 manos con 7 falsos.
+'''
+
+    Mano(Ronda(Carta(3, 'O'), Carta(1, 'E')),
+         Ronda(Carta(2, 'E'), Carta('R', 'B')),
+         Ronda(Carta(3, 'E'), Carta(7, 'B')),
+         8),
+    Mano(Ronda(Carta(2, 'C'), Carta(6, 'B')),
+         Ronda(Carta('S', 'B'), Carta(2, 'B')),
+         Ronda(Carta(7, 'C'), Carta('S', 'O')),
+         8),
+    Mano(Ronda(Carta(1, 'B'), Carta(7, 'B')),
+         Ronda(Carta('R', 'C'), Carta(3, 'O')),
+         Ronda(Carta(6, 'O'), Carta('C', 'O')),
+         8),
+    Mano(Ronda(Carta(4, 'O'), Carta('S', 'B')),
+         Ronda(Carta('C', 'E'), Carta(7, 'B')),
+         Ronda(Carta(3, 'E'), Carta(6, 'C')),
+         8),
+    Mano(Ronda(Carta(7, 'E'), Carta(2, 'O')),
+         Ronda(Carta('R', 'E'), Carta(3, 'B')),
+         Ronda(Carta(7, 'B'), Carta(3, 'C')),
+         8),
+
+'''
+Grupo 9 manos con 1 falsos.
+'''
+
+    Mano(Ronda(Carta(1, 'O'), Carta(1, 'E')),
+         Ronda(Carta('R', 'C'), Carta(5, 'B')),
+         Ronda(Carta('S', 'B'), Carta(3, 'C')),
+         9),
+    Mano(Ronda(Carta(3, 'E'), Carta('R', 'B')),
+         Ronda(Carta(7, 'C'), Carta(2, 'B')),
+         Ronda(Carta(1, 'O'), Carta(1, 'B')),
+         9),
+    Mano(Ronda(Carta(1, 'C'), Carta(3, 'B')),
+         Ronda(Carta('R', 'E'), Carta(6, 'C')),
+         Ronda(Carta(7, 'O'), Carta('S', 'C')),
+         9),
+    Mano(Ronda(Carta(2, 'B'), Carta(7, 'C')),
+         Ronda(Carta(3, 'E'), Carta(1, 'O')),
+         Ronda(Carta(5, 'O'), Carta(4, 'C')),
+         9),
+    Mano(Ronda(Carta(7, 'E'), Carta(2, 'C')),
+         Ronda(Carta('R', 'B'), Carta(3, 'O')),
+         Ronda(Carta(7, 'B'), Carta(3, 'C')),
+         9),
 
 
 '''
