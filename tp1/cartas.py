@@ -107,9 +107,12 @@ class Ronda:
         
 
 class Mano:
-    def __init__(self, ronda1, ronda2, ronda3, tapar=True, grupo=0):
+    def __init__(self, ronda1, ronda2, ronda3, grupo=0):
         self.rondas = (ronda1, ronda2, ronda3)
-        self.tapar = tapar
+        if grupo == 1:
+            self.tapar = False
+        else:
+            self.tapar = True
         self.grupo = grupo
 
     def quien_gana(self):

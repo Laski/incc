@@ -1,10 +1,11 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
-import random
 import os
+import random
+import pickle
 from psychopy import visual, core, event  # import some libraries from PsychoPy
 from cartas import *
-from casos_patologicos import *
+#from casos_patologicos import *
 
 INCORRECTO, CORRECTO = range(2)
 
@@ -219,25 +220,46 @@ class Experimento2(Experimento):
 
 def exp1(rondas_especificas):
     exp = Experimento1()
-    return exp.ejecutar(4, 4, rondas_especificas)
+    return exp.ejecutar(2, 4, rondas_especificas)
     
 def exp2(manos_especificas):
     exp = Experimento2()
-    return exp.ejecutar(4, 1, manos_especificas)
+    return exp.ejecutar(2, 4, manos_especificas)
+
+
+class Resultados:
+    def __init__(self, _id, mano_habil, res_exp1, res_exp2):
+        self._id = _id
+        self.mano_habil = mano_habil
+        self.res_exp1 = res_exp1
+        self.res_exp2 = res_exp2
+
+    def __str__(self):
+        res = str(self._id) + "\n"
+        res += str(self.mano_habil) + "\n"
+        res += str(self.res_exp1) + "\n"
+        res += str(self.res_exp2) + "\n"
+        return res
 
 
 def tomar_datos_y_correr_experimentos():
     sujetos = os.listdir('resultados')
+    sujetos.remove('pickle')
     _id = max([int(sujeto) for sujeto in sujetos]) + 1
-    print "Hola! Sos el jugador " + str(_id)
-    mano_habil = None
+    print("Hola! Sos el jugador " + str(_id))
+    mano_habil = "None"
     while mano_habil not in ("zdZD"):
         print("¿Sos zurdo o diestro? (z/d)")
         mano_habil = raw_input()
-    output = open('resultados/'+str(_id), 'w')
-    output.write(mano_habil+"\n")
-    output.write(str(exp1(RONDAS_PATOLOGICAS)))
-    output.write(str(exp2(MANOS_PATOLOGICAS)))
+    RONDAS_PATOLOGICAS = []
+    MANOS_PATOLOGICAS = []
+    res_exp1 = exp1(RONDAS_PATOLOGICAS)
+    res_exp2 = exp2(MANOS_PATOLOGICAS)    
+    resultados = Resultados(_id, mano_habil, res_exp1, res_exp2)
+    output_txt = open('resultados/'+str(_id), 'w')
+    output_obj = open('resultados/pickle/'+str(_id), 'wb')
+    output_txt.write(str(resultados))
+    pickle.dump(resultados, output_obj, protocol=pickle.HIGHEST_PROTOCOL)
 
 if __name__ == '__main__':
     tomar_datos_y_correr_experimentos()
