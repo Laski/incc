@@ -114,6 +114,16 @@ class Mano:
         else:
             self.tapar = True
         self.grupo = grupo
+        if self.hay_cartas_repetidas():
+            raise ValueError("Hay cartas repetidas")
+
+    def hay_cartas_repetidas(self):
+        cartas = [ronda.carta_izq for ronda in self.rondas]
+        cartas += [ronda.carta_der for ronda in self.rondas]
+        for carta in cartas:
+            if cartas.count(carta) > 1:
+                return True
+        return False
 
     def quien_gana(self):
         ganador_por_mano = [ganador1, ganador2, ganador3] = [ronda.quien_gana() for ronda in self.rondas]
