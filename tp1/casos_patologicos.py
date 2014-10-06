@@ -76,13 +76,10 @@ Si no, va el número solo como en las dos primeras.
 '''
 
 MANOS_PATOLOGICAS = [
-
-'''
-El siguiente grupo de manos termina siempre
- en la 2da ronda pero en la tercera el que 
- perdió tiene una carta más alta. 
- Ideales para mostrar sin tapar.
-'''
+# El siguiente grupo de manos termina siempre
+# en la 2da ronda pero en la tercera el que 
+# perdió tiene una carta más alta. 
+# Ideales para mostrar sin tapar.
 
     Mano(Ronda(Carta(2, 'C'), Carta(3, 'C')),
          Ronda(Carta(1, 'O'), Carta(7, 'O')),
@@ -129,9 +126,7 @@ El siguiente grupo de manos termina siempre
          Ronda(Carta(2, 'O'), Carta(5, 'E')),
          1),
 
-'''
-Grupo 2
-'''
+#Grupo 2
 
     Mano(Ronda(Carta(6, 'B'), Carta(3, 'C')),
          Ronda(Carta('R', 'E'), Carta(7, 'O')),
@@ -174,9 +169,7 @@ Grupo 2
          Ronda(Carta(7, 'C'), Carta(6, 'B')),
          2),
 
-'''
-Grupo 3
-'''
+#Grupo 3
 
    Mano(Ronda(Carta(2, 'B'), Carta(5, 'C')),
          Ronda(Carta(6, 'B'), Carta(7, 'E')),
@@ -219,11 +212,9 @@ Grupo 3
          Ronda(Carta(5, 'O'), Carta(1, 'E')),
          3), # No colgar con el grupo.
 
-'''
-Grupo 4
- manos con pardas en: 1ra y 2da
-            Las rondas no pardadas con un ganador claro.
-'''
+# Grupo 4
+# manos con pardas en: 1ra y 2da
+#            Las rondas no pardadas con un ganador claro.
 
 
     Mano(Ronda(Carta(3, 'B'), Carta(3, 'C')),
@@ -272,11 +263,10 @@ Grupo 4
          4), # No colgar con el grupo.
 
 
-'''
-Grupo 5
-manos con pardas en 3ra:
-Hipótesis: manos que si vas en orden son manos de 4 rondas.
-'''
+#Grupo 5
+#manos con pardas en 3ra:
+#Hipótesis: manos que si vas en orden son manos de 4 rondas.
+
     Mano(Ronda(Carta(1, 'E'), Carta(2, 'B')),
          Ronda(Carta(6, 'C'), Carta('R', 'B')),
          Ronda(Carta(2, 'E'), Carta(2, 'O')),

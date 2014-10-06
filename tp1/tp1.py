@@ -5,21 +5,11 @@ import random
 import pickle
 from psychopy import visual, core, event  # import some libraries from PsychoPy
 from cartas import *
-#from casos_patologicos import *
+from casos_patologicos import *
 
 INCORRECTO, CORRECTO = range(2)
 
 VERDE = [25.0/255*2-1, 77.0/255*2-1, 30.0/255*2-1]    # los pajeros estos van de -1 a 1
-
-class Experimento:
-    def __init__(self):
-        self.mostrador = Mostrador()
-    
-    def primer_experimento(self, rondas):
-        pass
-        
-    def segundo_experimento(self, manos):
-        pass
 
 
 class Dibujador:
@@ -251,8 +241,6 @@ def tomar_datos_y_correr_experimentos():
     while mano_habil not in ("zdZD"):
         print("¿Sos zurdo o diestro? (z/d)")
         mano_habil = raw_input()
-    RONDAS_PATOLOGICAS = []
-    MANOS_PATOLOGICAS = []
     res_exp1 = exp1(RONDAS_PATOLOGICAS)
     res_exp2 = exp2(MANOS_PATOLOGICAS)    
     resultados = Resultados(_id, mano_habil, res_exp1, res_exp2)
