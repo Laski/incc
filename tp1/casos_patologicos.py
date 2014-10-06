@@ -26,7 +26,6 @@ RONDAS_PATOLOGICAS = [
 ]
 
 
-
 '''
 Grupos: 
         1 manos testigo de si mira la última o no
@@ -126,8 +125,21 @@ El siguiente grupo de manos termina siempre
          Ronda(Carta(2, 'O'), Carta(5, 'E')),
          1),
 
+'''
+Grupo 2
+'''
+
+    Mano(Ronda(Carta(6, 'B'), Carta(3, 'C')),
+         Ronda(Carta('R', 'E'), Carta(7, 'O')),
+         Ronda(Carta(5, 'B'), Carta(1, 'O')),
+         2),   # No colgar con el grupo.
 
 
 
+
+
+'''
+Ojo no voletear el corchete este de acá abajo.
+'''
 ]
 
