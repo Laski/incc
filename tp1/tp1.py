@@ -14,8 +14,8 @@ VERDE = [25.0/255*2-1, 77.0/255*2-1, 30.0/255*2-1]    # los pajeros estos van de
 
 class Dibujador:
     def __init__(self):
-        #self.window = visual.Window([1024,768], monitor="testMonitor", units='cm', color=VERDE)
-        self.window = visual.Window(fullscr=True, monitor="testMonitor", units='cm', color=VERDE)
+        self.window = visual.Window([1024,768], monitor="testMonitor", units='cm', color=VERDE)
+        #self.window = visual.Window(fullscr=True, monitor="testMonitor", units='cm', color=VERDE)
         self.x_izq = -4
         self.x_der = 4
         self.y1 = 7
@@ -210,11 +210,11 @@ class Experimento2(Experimento):
 
 def exp1(rondas_especificas):
     exp = Experimento1()
-    return exp.ejecutar(2, 1, rondas_especificas)
+    return exp.ejecutar(2, 50, rondas_especificas)
     
 def exp2(manos_especificas):
     exp = Experimento2()
-    return exp.ejecutar(2, 1, manos_especificas)
+    return exp.ejecutar(4, 25, manos_especificas)
 
 
 class Resultados:

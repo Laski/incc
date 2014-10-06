@@ -245,31 +245,31 @@ MANOS_PATOLOGICAS = [
          Ronda(Carta('R', 'B'), Carta('R', 'C')),
          Ronda(Carta(4, 'O'), Carta('C', 'E')),
          4), # No colgar con el grupo.
-    Mano(Ronda(Carta(3, 'B'), Carta(3, 'O')),
-         Ronda(Carta(2, 'E'), Carta(2, 'C')),
-         Ronda(Carta(2, 'O'), Carta(5, 'B')),
-         4), # No colgar con el grupo.
-    Mano(Ronda(Carta('R', 'E'), Carta('R', 'B')),
-         Ronda(Carta(3, 'E'), Carta(3, 'O')),
-         Ronda(Carta('C', 'O'), Carta(4, 'E')),
-         4), # No colgar con el grupo.
-    Mano(Ronda(Carta(3, 'C'), Carta(3, 'B')),
-         Ronda(Carta('C', 'E'), Carta('C', 'O')),
-         Ronda(Carta(5, 'O'), Carta('C', 'B')),
-         4), # No colgar con el grupo.
-    Mano(Ronda(Carta(5, 'B'), Carta(5, 'E')),
-         Ronda(Carta(3, 'O'), Carta(3, 'C')),
-         Ronda(Carta(2, 'E'), Carta(6, 'B')),
-         4), # No colgar con el grupo.
-    Mano(Ronda(Carta(2, 'O'), Carta(2, 'E')),
-         Ronda(Carta('C', 'E'), Carta('C', 'C')),
-         Ronda(Carta(4, 'E'), Carta('S', 'B')),
-         4), # No colgar con el grupo.
-    Mano(Ronda(Carta(3, 'B'), Carta(3, 'E')),
-         Ronda(Carta('R', 'O'), Carta('R', 'C')),
-         Ronda(Carta(6, 'E'), Carta('R', 'B')),
-         4), # No colgar con el grupo.
 
+#    Mano(Ronda(Carta(3, 'B'), Carta(3, 'O')),
+#         Ronda(Carta(2, 'E'), Carta(2, 'C')),
+#         Ronda(Carta(2, 'O'), Carta(5, 'B')),
+#         4), # No colgar con el grupo.
+#    Mano(Ronda(Carta('R', 'E'), Carta('R', 'B')),
+#         Ronda(Carta(3, 'E'), Carta(3, 'O')),
+#         Ronda(Carta('C', 'O'), Carta(4, 'E')),
+#         4), # No colgar con el grupo.
+#    Mano(Ronda(Carta(3, 'C'), Carta(3, 'B')),
+#         Ronda(Carta('C', 'E'), Carta('C', 'O')),
+#         Ronda(Carta(5, 'O'), Carta('C', 'B')),
+#         4), # No colgar con el grupo.
+#    Mano(Ronda(Carta(5, 'B'), Carta(5, 'E')),
+#         Ronda(Carta(3, 'O'), Carta(3, 'C')),
+#         Ronda(Carta(2, 'E'), Carta(6, 'B')),
+#         4), # No colgar con el grupo.
+#    Mano(Ronda(Carta(2, 'O'), Carta(2, 'E')),
+#         Ronda(Carta('C', 'E'), Carta('C', 'C')),
+#         Ronda(Carta(4, 'E'), Carta('S', 'B')),
+#         4), # No colgar con el grupo.
+#    Mano(Ronda(Carta(3, 'B'), Carta(3, 'E')),
+#         Ronda(Carta('R', 'O'), Carta('R', 'C')),
+#         Ronda(Carta(6, 'E'), Carta('R', 'B')),
+#         4), # No colgar con el grupo.
 
 #Grupo 5
 #manos con pardas en 3ra:
@@ -339,10 +339,10 @@ MANOS_PATOLOGICAS = [
          Ronda(Carta('C', 'O'), Carta('R', 'O')),
          Ronda(Carta('C', 'B'), Carta('S', 'O')),
          7),
-    Mano(Ronda(Carta('C', 'E'), Carta('S', 'B')),
-         Ronda(Carta('C', 'C'), Carta('R', 'C')),
-         Ronda(Carta('C', 'O'), Carta('R', 'E')),
-         7),
+#    Mano(Ronda(Carta('C', 'E'), Carta('S', 'B')),
+#         Ronda(Carta('C', 'C'), Carta('R', 'C')),
+#         Ronda(Carta('C', 'O'), Carta('R', 'E')),
+#         7),
 
 
 # Grupo 8 manos con 7 falsos.
@@ -412,19 +412,19 @@ MANOS_PATOLOGICAS = [
     Mano(Ronda(Carta(7, 'E'), Carta(3, 'O')),
          Ronda(Carta(6, 'E'), Carta(2, 'O')),
          Ronda(Carta(2, 'E'), Carta(3, 'B')),
-         10),
-    Mano(Ronda(Carta(3, 'O'), Carta('R', 'C')),
-         Ronda(Carta(6, 'E'), Carta(7, 'E')),
-         Ronda(Carta(7, 'C'), Carta(4, 'C')),
-         10),
-    Mano(Ronda(Carta(2, 'C'), Carta(4, 'C')),
-         Ronda(Carta(3, 'E'), Carta(1, 'E')),
-         Ronda(Carta('R', 'E'), Carta(6, 'C')),
-         10),
-    Mano(Ronda(Carta(6, 'C'), Carta(2, 'O')),
-         Ronda(Carta(7, 'E'), Carta(2, 'E')),
-         Ronda(Carta(2, 'B'), Carta(3, 'C')),
          10)
+#    Mano(Ronda(Carta(3, 'O'), Carta('R', 'C')),
+#         Ronda(Carta(6, 'E'), Carta(7, 'E')),
+#         Ronda(Carta(7, 'C'), Carta(4, 'C')),
+#         10),
+#    Mano(Ronda(Carta(2, 'C'), Carta(4, 'C')),
+#         Ronda(Carta(3, 'E'), Carta(1, 'E')),
+#         Ronda(Carta('R', 'E'), Carta(6, 'C')),
+#         10),
+#    Mano(Ronda(Carta(6, 'C'), Carta(2, 'O')),
+#         Ronda(Carta(7, 'E'), Carta(2, 'E')),
+#         Ronda(Carta(2, 'B'), Carta(3, 'C')),
+#         10)
 
 
 #Ojo no voletear el corchete este de acá abajo.
