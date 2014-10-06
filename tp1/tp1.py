@@ -210,7 +210,7 @@ class Experimento2(Experimento):
 
 def exp1(rondas_especificas):
     exp = Experimento1()
-    return exp.ejecutar(2, 50, rondas_especificas)
+    return exp.ejecutar(2, 25, rondas_especificas)
     
 def exp2(manos_especificas):
     exp = Experimento2()
