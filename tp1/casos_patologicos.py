@@ -133,6 +133,10 @@ Grupo 2
          Ronda(Carta('R', 'E'), Carta(7, 'O')),
          Ronda(Carta(5, 'B'), Carta(1, 'O')),
          2),   # No colgar con el grupo.
+    Mano(Ronda(Carta(2, 'O'), Carta(5, 'E')),
+         Ronda(Carta('3', 'B'), Carta(10, 'C')),
+         Ronda(Carta(5, 'B'), Carta(12, 'E')),
+         2), 
 
 
 
