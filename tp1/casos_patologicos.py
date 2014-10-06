@@ -230,6 +230,43 @@ Grupo 4
          Ronda(Carta('3', 'O'), Carta(3, 'E')),
          Ronda(Carta(2, 'B'), Carta(5, 'C')),
          4), # No colgar con el grupo.
+    Mano(Ronda(Carta(6, 'B'), Carta(6, 'C')),
+         Ronda(Carta('12', 'E'), Carta(12, 'O')),
+         Ronda(Carta(4, 'C'), Carta(12, 'B')),
+         4), # No colgar con el grupo.
+    Mano(Ronda(Carta(2, 'E'), Carta(2, 'B')),
+         Ronda(Carta('3', 'C'), Carta(3, 'E')),
+         Ronda(Carta(11, 'B'), Carta(5, 'O')),
+         4), # No colgar con el grupo.
+    Mano(Ronda(Carta(5, 'C'), Carta(5, 'E')),
+         Ronda(Carta(12, 'B'), Carta(12, 'C')),
+         Ronda(Carta(4, 'O'), Carta(11, 'E')),
+         4), # No colgar con el grupo.
+    Mano(Ronda(Carta(3, 'B'), Carta(3, 'O')),
+         Ronda(Carta('2', 'E'), Carta(2, 'C')),
+         Ronda(Carta(2, 'O'), Carta(5, 'B')),
+         4), # No colgar con el grupo.
+    Mano(Ronda(Carta('R', 'E'), Carta('R', 'B')),
+         Ronda(Carta(3, 'E'), Carta(3, 'O')),
+         Ronda(Carta('C', 'O'), Carta(4, 'E')),
+         4), # No colgar con el grupo.
+    Mano(Ronda(Carta(3, 'C'), Carta(3, 'B')),
+         Ronda(Carta('11', 'E'), Carta(11, 'O')),
+         Ronda(Carta('5', 'O'), Carta(11, 'B')),
+         4), # No colgar con el grupo.
+    Mano(Ronda(Carta(5, 'B'), Carta(5, 'E')),
+         Ronda(Carta(3, 'O'), Carta(3, 'C')),
+         Ronda(Carta(2, 'E'), Carta(6, 'B')),
+         4), # No colgar con el grupo.
+    Mano(Ronda(Carta(2, 'O'), Carta(2, 'E')),
+         Ronda(Carta('C', 'E'), Carta('C', 'C')),
+         Ronda(Carta(4, 'E'), Carta('S', 'B')),
+         4), # No colgar con el grupo.
+    Mano(Ronda(Carta(3, 'B'), Carta(3, 'E')),
+         Ronda(Carta('R', 'O'), Carta('R', 'C')),
+         Ronda(Carta(6, 'E'), Carta('R', 'B')),
+         4), # No colgar con el grupo.
+         
 
 
 
