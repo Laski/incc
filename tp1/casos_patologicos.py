@@ -268,6 +268,48 @@ Grupo 4
          4), # No colgar con el grupo.
          
 
+'''
+Grupo 5
+manos con pardas en 3ra:
+Hipótesis: manos que si vas en orden son manos de 4 rondas.
+'''
+    Mano(Ronda(Carta(1, 'E'), Carta(2, 'B')),
+         Ronda(Carta(6, 'C'), Carta('R', 'B')),
+         Ronda(Carta(2, 'E'), Carta(2, 'O')),
+         5),
+    Mano(Ronda(Carta('R', 'O'), Carta(7, 'E')),
+         Ronda(Carta(2, 'E'), Carta(6, 'B')),
+         Ronda(Carta('R', 'E'), Carta('R', 'C')),
+         5),
+    Mano(Ronda(Carta(2, 'E'), Carta(1, 'B')),
+         Ronda(Carta(3, 'C'), Carta('S', 'E')),
+         Ronda(Carta(3, 'O'), Carta(3, 'B')),
+         5),
+    Mano(Ronda(Carta(2, 'B'), Carta(7, 'O')),
+         Ronda(Carta(3, 'C'), Carta('S', 'E')),
+         Ronda(Carta(3, 'O'), Carta(3, 'B')),
+         5),
+    Mano(Ronda(Carta(1, 'B'), Carta('R', 'O')),
+         Ronda(Carta(2, 'C'), Carta('7', 'E')),
+         Ronda(Carta('S', 'O'), Carta('S', 'B')),
+         5),
+         
+
+
+'''
+Grupo 6
+manos con pardas en 1ra 2da y 3ra:
+Hipótesis: manos que si vas en orden son manos de 4 rondas.
+'''
+
+    Mano(Ronda(Carta(3, 'B'), Carta(3, 'O')),
+         Ronda(Carta(2, 'E'), Carta(2, 'B')),
+         Ronda(Carta('R', 'O'), Carta('R', 'C')),
+         6),
+    Mano(Ronda(Carta(3, 'B'), Carta(3, 'O')),
+         Ronda(Carta(2, 'E'), Carta(2, 'B')),
+         Ronda(Carta('R', 'O'), Carta('R', 'C')),
+         6),
 
 
 '''
