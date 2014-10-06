@@ -38,14 +38,26 @@ Grupos:
 
         3 manos "sencillas" que terminen en 3 rondas  Idem.
         
-        4 manos con pardas en: 3ra / 1ra y 2da / 1ra 2da y 3ra. 
+        4 manos con pardas en: 1ra y 2da
             Las rondas no pardadas con un ganador claro.
-        
-        5 manos confusas visualmente por lo chotas.
-            Muchas *figuras* jugando entre si, 7s y 1s falsos. 
+
+        5 manos con pardas en 3ra o 1ra 2da y 3ra:
+            Hipótesis: manos que si vas en orden son manos de 4 rondas.
+
+        6 manos parejas:
+            En cada ronda las dos cartas están muy cerca en la escala.
+            Sobre todo: *figuras* jugando entre si, 7s y 1s falsos. 
+
+        7 manos parejas sin cartas altas
+            Idem anterior pero sin cartas altas (todas < 2)
+
 
 
 Excepto las del grupo 2 todas deberían terminar en 3 rondas.
+
+2 vs 3 nos sirve para ver como afecta la cantidad de manos.
+
+4 vs 5
 
 Ej. de mano en "en python" :
 
