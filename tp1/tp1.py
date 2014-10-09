@@ -3,6 +3,7 @@
 import os
 import random
 import pickle
+from collections import defaultdict
 from psychopy import visual, core, event  # import some libraries from PsychoPy
 from cartas import *
 from casos_patologicos import *
@@ -14,8 +15,8 @@ VERDE = [25.0/255*2-1, 77.0/255*2-1, 30.0/255*2-1]    # los pajeros estos van de
 
 class Dibujador:
     def __init__(self):
-        #self.window = visual.Window([1024,768], monitor="testMonitor", units='cm', color=VERDE)
-        self.window = visual.Window(fullscr=True, monitor="testMonitor", units='cm', color=VERDE)
+        self.window = visual.Window([1024,768], monitor="testMonitor", units='cm', color=VERDE)
+        #self.window = visual.Window(fullscr=True, monitor="testMonitor", units='cm', color=VERDE)
         self.x_izq = -4
         self.x_der = 4
         self.y1 = 7
@@ -231,8 +232,57 @@ class Resultados:
         res += str(self.res_exp2) + "\n"
         return res
 
+    def promedio_primer_experimento(self):
+        promedios_por_grupo = self.promedios_por_grupo(self.res_exp1)
+        factor_de_velocidad_por_grupo = {}
+        promedio_grupo_cero = promedios_por_grupo[0]
+        for grupo in promedios_por_grupo.keys():
+            promedio = promedios_por_grupo[grupo]
+            factor_de_velocidad = promedio * 100 / promedio_grupo_cero
+            factor_de_velocidad_por_grupo[grupo] = round(factor_de_velocidad, 3)
+        return factor_de_velocidad_por_grupo
+
+    def promedios_por_grupo(self, resultados):
+        tiempos_por_grupo = defaultdict(list)
+        for resultado in resultados:
+            if resultado == "Descanso":
+                continue
+            correcto, grupo, cartas, tiempo = resultado
+            if correcto == CORRECTO:
+                tiempos_por_grupo[grupo].append(tiempo)
+        promedios_por_grupo = {}
+        for grupo in tiempos_por_grupo.keys():
+            total = sum(tiempos_por_grupo[grupo])
+            promedios_por_grupo[grupo] = total/len(tiempos_por_grupo[grupo])
+        return promedios_por_grupo
+
+    def promedio_primera_tanda(self, resultados):
+        res = []
+        for resultado in resultados:
+            if resultado == "Descanso":
+                break
+            res.append(resultado)
+        return self.promedios_por_grupo(res)
+
+    def promedio_segunda_tanda(self, resultados):
+        res = []
+        paso_descanso = False
+        for resultado in resultados:
+            if resultado == "Descanso":
+                paso_descanso = True
+            if paso_descanso:
+                res.append(resultado)
+        return self.promedios_por_grupo(res)
+        
 
 def tomar_datos_y_correr_experimentos():
+    archivos = os.listdir('.')
+    id_entrevistador = ''
+    for archivo in archivos:
+        try:
+            id_entrevistador = str(int(archivo))
+        except ValueError:
+            pass
     sujetos = os.listdir('resultados')
     sujetos.remove('pickle')
     if sujetos == []:
@@ -245,7 +295,7 @@ def tomar_datos_y_correr_experimentos():
         print("¿Sos zurdo o diestro? (z/d)")
         mano_habil = raw_input()
     res_exp1 = exp1(RONDAS_PATOLOGICAS)
-    res_exp2 = exp2(MANOS_PATOLOGICAS)    
+    res_exp2 = exp2(MANOS_PATOLOGICAS)
     resultados = Resultados(_id, mano_habil, res_exp1, res_exp2)
     # guardo resultados en texto
     output_txt = open('resultados/'+str(_id), 'w')
