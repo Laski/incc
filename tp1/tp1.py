@@ -232,8 +232,11 @@ class Resultados:
         res += str(self.res_exp2) + "\n"
         return res
 
-    def promedio_primer_experimento(self):
-        promedios_por_grupo = self.promedios_por_grupo(self.res_exp1)
+    def factor_de_velocidad_primer_experimento(self):
+        return self.factor_de_velocidad(self.res_exp1)
+
+    def factor_de_velocidad(self, resultados):
+        promedios_por_grupo = self.promedios_por_grupo(resultados)
         factor_de_velocidad_por_grupo = {}
         promedio_grupo_cero = promedios_por_grupo[0]
         for grupo in promedios_por_grupo.keys():
@@ -273,7 +276,7 @@ class Resultados:
             if paso_descanso:
                 res.append(resultado)
         return self.promedios_por_grupo(res)
-        
+
 
 def tomar_datos_y_correr_experimentos():
     archivos = os.listdir('.')
