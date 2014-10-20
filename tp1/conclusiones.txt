@@ -1,13 +1,28 @@
 Conclusiones:
 =============
-Sin filtrar los que usan el UCR.
-Manos simples de 3 rondas (G3) vs manos de 3 rondas con solo figuras (G7): 			NO ES SIGNIFICATIVO: 	p = 0.06045
-Manos simples de 3 rondas (G3) vs manos de 3 rondas con parda en las 3 (G6):  		ES SIGNIFICATIVO: 		p = 0.01693
-Manos simples de 3 rondas (G3) vs manos de 3 rondas con parda en la 3ra (G5): 		ES SIGNIFICATIVO: 		p = 0.00102
 
+Comparando todas contra todas (manos de 3 rondas y de 2 rondas indistintamente)
 
-Filtrando los que usan el UCR. (más de 4 errores en las manos testigo)
-Manos simples de 3 rondas (G3) vs manos de 3 rondas con solo figuras (G7): 			ES SIGNIFICATIVO: 		p = 0.043505
-Manos simples de 3 rondas (G3) vs manos de 3 rondas con parda en las 3 (G6): 		NO ES SIGNIFICATIVO:	p = 0.420441
-Manos simples de 3 rondas (G3) vs manos de 3 rondas con parda en la 3ra (G5):		ES SIGNIFICATIVO:		p = 0.004276
-Manos simples de 3 rondas (G3) vs manos con parda en 1ra y 2da (G4):				NO ES SIGNIFICATIVO:	p = 0.201909
+	Filtrando gente que fallaba más de 3 veces en las pruebas para ver si usaba UCR:
+	    0: 0.0101330693595
+	    1: NO SIGNIFICATIVO
+	    2: 6.8289348175e-09
+	    4: NO SIGNIFICATIVO
+	    5: 0.00427645412847
+	    6: NO SIGNIFICATIVO
+	    7: 0.0435052791024
+	    8: NO SIGNIFICATIVO
+	    9: NO SIGNIFICATIVO
+	    10: 0.00662300725634
+	No filtrando a nadie:
+	    0: 0.00974781165918
+	    1: 0.00391059537101
+	    2: 7.04760065741e-09
+	    4: NO SIGNIFICATIVO
+	    5: 0.00102856619101
+	    6: 0.0169360993138
+	    7: NO SIGNIFICATIVO
+	    8: NO SIGNIFICATIVO
+	    9: NO SIGNIFICATIVO
+	    10: 0.00395127677081
+

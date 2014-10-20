@@ -1,13 +1,19 @@
  #!/usr/bin/python2
  # -*- coding: utf-8 -*-
-VALORES = range(1,8) + ['S', 'C', 'R']
+FIGURAS = ['S', 'C', 'R']
+VALORES = range(1,8) + FIGURAS
 PALOS = ('O', 'C', 'E', 'B')
 POSIBLES_GANADORES = IZQUIERDA, DERECHA, PARDA = range(3)
 RANDOM = 0
 
 
 class Carta:
-    def __init__(self, valor, palo):
+    def __init__(self, valor=None, palo=None, from_str=None):
+        if from_str is not None:
+            valor = from_str[0]
+            if valor not in FIGURAS:
+                valor = int(valor)
+            palo = from_str[1]
         assert valor in VALORES
         assert palo in PALOS
         self.valor = valor
@@ -91,7 +97,12 @@ class Mazo:     # hará falta?
 
 
 class Ronda:
-    def __init__(self, carta_izq, carta_der, grupo=0):
+    def __init__(self, carta_izq=None, carta_der=None, grupo=0, from_str=None):
+        if from_str is not None:
+            carta_izq = Carta(from_str=from_str.split(" vs ")[0])
+            carta_der = Carta(from_str=from_str.split(" vs ")[1])
+        assert carta_izq in Mazo().cartas
+        assert carta_der in Mazo().cartas
         self.carta_izq = carta_izq
         self.carta_der = carta_der
         self.grupo = grupo
@@ -109,7 +120,11 @@ class Ronda:
         
 
 class Mano:
-    def __init__(self, ronda1, ronda2, ronda3, grupo=0):
+    def __init__(self, ronda1=None, ronda2=None, ronda3=None, grupo=0, from_str=None):
+        if from_str is not None:
+            ronda1 = Ronda(from_str=from_str.split(", ")[0])
+            ronda2 = Ronda(from_str=from_str.split(", ")[1])
+            ronda3 = Ronda(from_str=from_str.split(", ")[2])
         self.rondas = (ronda1, ronda2, ronda3)
         if grupo == 1:
             self.tapar = False

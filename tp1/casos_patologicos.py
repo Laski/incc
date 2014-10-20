@@ -197,7 +197,7 @@ MANOS_PATOLOGICAS = [
          3), # No colgar con el grupo.
     Mano(Ronda(Carta(3, 'C'), Carta('R', 'E')),
          Ronda(Carta(6, 'B'), Carta('R', 'O')),
-         Ronda(Carta(2, 'E'), Carta(4, 'B')),
+        Ronda(Carta(2, 'E'), Carta(4, 'B')),
          3), # No colgar con el grupo.
     Mano(Ronda(Carta(2, 'C'), Carta(7, 'E')),
          Ronda(Carta('C', 'B'), Carta(6, 'C')),

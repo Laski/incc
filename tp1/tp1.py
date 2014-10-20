@@ -222,9 +222,25 @@ class Resultados:
     def __init__(self, _id, mano_habil, res_exp1, res_exp2):
         self._id = _id
         self.mano_habil = mano_habil
+        # preproceso los resultados
         self.res_exp1 = res_exp1
         self.res_exp2 = res_exp2
 
+    def preprocesar(self):
+        self.res_exp1 = self.preprocesar_experimento(self.res_exp1, Ronda)
+        self.res_exp2 = self.preprocesar_experimento(self.res_exp2, Mano)
+
+    def preprocesar_experimento(self, resultados, constructor):
+        res = []
+        for resultado in resultados:
+            if resultado == "Descanso":
+                continue
+            correcto, grupo, cartas_str, tiempo = resultado
+            cartas = constructor(grupo=grupo, from_str=cartas_str)
+            resultado = (correcto, grupo, cartas, tiempo)
+            res.append(resultado)
+        return res
+        
     def __str__(self):
         res = str(self._id) + "\n"
         res += str(self.mano_habil) + "\n"
@@ -232,27 +248,57 @@ class Resultados:
         res += str(self.res_exp2) + "\n"
         return res
 
+    def factor_de_correctitud(self, resultados):
+        manos_por_grupo = defaultdict(int)
+        correctas_por_grupo = defaultdict(int)
+        for resultado in resultados:
+            if resultado == "Descanso":
+                continue
+            correcto, grupo, cartas, tiempo = resultado
+            manos_por_grupo[grupo] += 1
+            if correcto == CORRECTO:
+                correctas_por_grupo[grupo] += 1
+        res = {}
+        for grupo in manos_por_grupo.keys():
+            res[grupo] = (correctas_por_grupo[grupo], manos_por_grupo[grupo])
+        return res
+
     def factor_de_velocidad_primer_experimento(self):
         return self.factor_de_velocidad(self.res_exp1)
 
-    def factor_de_velocidad(self, resultados):
+    def factor_de_velocidad_segundo_experimento(self):
+        return self.factor_de_velocidad(self.res_exp2, 3)
+
+    def promedio_primer_experimento(self):
+        return self.promedios_por_grupo(self.res_exp1)
+
+    def promedio_segundo_experimento(self, filtrar_dos_rondas=False):
+        return self.promedios_por_grupo(self.res_exp2, filtrar_dos_rondas)
+
+    def factor_de_velocidad(self, resultados, grupo_control=0):
         promedios_por_grupo = self.promedios_por_grupo(resultados)
         factor_de_velocidad_por_grupo = {}
-        promedio_grupo_cero = promedios_por_grupo[0]
+        promedio_grupo_control = promedios_por_grupo[grupo_control]
         for grupo in promedios_por_grupo.keys():
             promedio = promedios_por_grupo[grupo]
-            factor_de_velocidad = promedio * 100 / promedio_grupo_cero
+            factor_de_velocidad = promedio * 100 / promedio_grupo_control
             factor_de_velocidad_por_grupo[grupo] = round(factor_de_velocidad, 3)
         return factor_de_velocidad_por_grupo
 
-    def promedios_por_grupo(self, resultados):
+    def tiempos_por_grupo(self, resultados):
         tiempos_por_grupo = defaultdict(list)
         for resultado in resultados:
             if resultado == "Descanso":
                 continue
             correcto, grupo, cartas, tiempo = resultado
+            #if cartas == 'SO vs CB, CC vs RC, RE vs SC':
+            #    continue
             if correcto == CORRECTO:
                 tiempos_por_grupo[grupo].append(tiempo)
+        return tiempos_por_grupo
+
+    def promedios_por_grupo(self, resultados, filtrar_dos_rondas=False):
+        tiempos_por_grupo = self.tiempos_por_grupo(resultados)
         promedios_por_grupo = {}
         for grupo in tiempos_por_grupo.keys():
             total = sum(tiempos_por_grupo[grupo])
