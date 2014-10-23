@@ -248,7 +248,7 @@ class Resultados:
         res += str(self.res_exp2) + "\n"
         return res
 
-    def factor_de_correctitud(self, resultados):
+    def correctas_por_grupo(self, resultados):
         manos_por_grupo = defaultdict(int)
         correctas_por_grupo = defaultdict(int)
         for resultado in resultados:
@@ -322,6 +322,19 @@ class Resultados:
             if paso_descanso:
                 res.append(resultado)
         return self.promedios_por_grupo(res)
+
+    def tiempos_por_ronda(self, resultados, grupo_control=0):
+        tiempos = []
+        for resultado in resultados:
+            if resultado == "Descanso":
+                continue
+            correcto, grupo, cartas, tiempo = resultado
+            if correcto == CORRECTO and grupo_control == grupo:
+                tiempos.append(tiempo)
+        return tiempos
+
+    def usa_ucr(self):
+        return self.correctas_por_grupo(self.res_exp2)[1][0] < 6
 
 
 def tomar_datos_y_correr_experimentos():
