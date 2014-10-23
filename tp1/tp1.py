@@ -334,6 +334,7 @@ def tomar_datos_y_correr_experimentos():
             pass
     sujetos = os.listdir('resultados')
     sujetos.remove('pickle')
+    sujetos.remove('pickle2')
     if sujetos == []:
         _id = 0
     else:
