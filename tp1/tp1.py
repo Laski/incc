@@ -122,10 +122,10 @@ class Experimento:
         key, time = event.waitKeys(keyList=('left', 'right'), timeStamped=self.clock)[0]
         if (key == 'left' and ganador == IZQUIERDA) or (key == 'right' and ganador == DERECHA):
             self.mostrador.mostrar_tick()
-            return CORRECTO, cartas.grupo, str(cartas), time
+            return CORRECTO, cartas.grupo, cartas, time
         else:
             self.mostrador.mostrar_cross()
-            return INCORRECTO, cartas.grupo, str(cartas), time
+            return INCORRECTO, cartas.grupo, cartas, time
 
     def cartas_al_azar(self):
         todas = self.mazo.cartas[:]
@@ -276,6 +276,7 @@ class Resultados:
         return self.promedios_por_grupo(self.res_exp2, filtrar_dos_rondas)
 
     def factor_de_velocidad(self, resultados, grupo_control=0):
+        # responde un diccionario grupo -> 
         promedios_por_grupo = self.promedios_por_grupo(resultados)
         factor_de_velocidad_por_grupo = {}
         promedio_grupo_control = promedios_por_grupo[grupo_control]

@@ -24,12 +24,12 @@ pyplot.hist(resultados_grupo_control)
 pyplot.show()
 '''
 
-def ttest_comparativo(resultados, grupo_control, grupo_a_analizar, filtrar=True):
+def ttest_comparativo(resultados, grupo_control, grupo_a_analizar, filtrar_ucr=True, misma_cant_cartas=True):
     promedio_por_persona_grupo_control = {}
     promedio_por_persona_grupo_a_analizar = {}
     for resultado in resultados:
         # filtro los individuos que fallaron mas de 3 veces en las pruebas para ver si usaron el algoritmo UCR
-        if filtrar and resultado.usa_ucr():
+        if filtrar_ucr and resultado.usa_ucr():
             continue
         try:
             promedio_grupo_control = resultado.promedio_segundo_experimento()[grupo_control]
@@ -40,11 +40,8 @@ def ttest_comparativo(resultados, grupo_control, grupo_a_analizar, filtrar=True)
         promedio_por_persona_grupo_control[resultado._id] = promedio_grupo_control
         promedio_por_persona_grupo_a_analizar[resultado._id] = promedio_grupo_a_analizar
 
-    resultados_grupo_control = []
-    resultados_grupo_a_analizar = []
-    for persona in promedio_por_persona_grupo_control.keys():
-        resultados_grupo_control.append(promedio_por_persona_grupo_control[persona])
-        resultados_grupo_a_analizar.append(promedio_por_persona_grupo_a_analizar[persona])
+    resultados_grupo_control = promedio_por_persona_grupo_control.values()
+    resultados_grupo_a_analizar = promedio_por_persona_grupo_a_analizar.values()
 
     return ttest_rel(resultados_grupo_control, resultados_grupo_a_analizar)[1]  # p-value
 
@@ -60,10 +57,13 @@ def significancia_grupos_manos(resultados):
         pvalue =  ttest_comparativo(resultados, 3, grupo, False)
         print(" " + str(grupo) + ": " + (str(pvalue) if pvalue < 0.05 else "NO SIGNIFICATIVO"))
 
+
+def factor_de_velocidad_por_grupo(resultados):
+    factor_de_velocidad_por_grupo = resultados.factor_de_velocidad_segundo_experimento
+
 def correctitud_por_mano(resultados):
     ## TODO
     pass
-    
 
 def promedio_por_mano(resultados):
     tiempos = {}

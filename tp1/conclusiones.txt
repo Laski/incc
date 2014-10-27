@@ -26,3 +26,5 @@ Comparando todas contra todas (manos de 3 rondas y de 2 rondas indistintamente)
 	    9: NO SIGNIFICATIVO
 	    10: 0.00395127677081
 
+
+Comparando solo manos de 3 rondas 
