@@ -209,20 +209,10 @@ class Experimento2(Experimento):
         return Mano(ronda1, ronda2, ronda3)
 
 
-def exp1(rondas_especificas):
-    exp = Experimento1()
-    return exp.ejecutar(2, 25, rondas_especificas)
-    
-def exp2(manos_especificas):
-    exp = Experimento2()
-    return exp.ejecutar(4, 25, manos_especificas)
-
-
 class Resultados:
     def __init__(self, _id, mano_habil, res_exp1, res_exp2):
         self._id = _id
         self.mano_habil = mano_habil
-        # preproceso los resultados
         self.res_exp1 = res_exp1
         self.res_exp2 = res_exp2
 
@@ -263,11 +253,31 @@ class Resultados:
             res[grupo] = (correctas_por_grupo[grupo], manos_por_grupo[grupo])
         return res
 
-    def factor_de_velocidad_primer_experimento(self):
-        return self.factor_de_velocidad(self.res_exp1)
+    def factor_de_velocidad_por_grupo(self, filtrar_dos_rondas=False):
+        promedios_por_grupo = self.promedio_segundo_experimento(filtrar_dos_rondas)
+        promedio_primer_experimento_por_grupo = self.promedio_primer_experimento()
+        promedio_primer_experimento = sum(promedio_primer_experimento_por_grupo.values()) / len(promedio_primer_experimento_por_grupo)
+        factor_de_velocidad_por_grupo = {}
+        for grupo in promedios_por_grupo.keys():
+            factor_de_velocidad_por_grupo[grupo] = promedios_por_grupo[grupo] / promedio_primer_experimento
+        return factor_de_velocidad_por_grupo
 
-    def factor_de_velocidad_segundo_experimento(self):
-        return self.factor_de_velocidad(self.res_exp2, 3)
+    def comparativa_de_tiempo_primer_experimento(self):
+        return self.comparativa_de_tiempo_respecto_al_grupo(self.res_exp1, 0)
+
+    def comparativa_de_tiempo_segundo_experimento(self):
+        return self.comparativa_de_tiempo_respecto_al_grupo(self.res_exp2, 3)
+
+    def comparativa_de_tiempo_respecto_al_grupo(self, resultados, grupo_control=0):
+        # responde un diccionario grupo -> x, donde x es la cantidad relativa de tiempo que tardó en ese grupo en relación con el grupo control
+        promedios_por_grupo = self.promedios_por_grupo(resultados)
+        comparativa_de_tiempo_por_grupo = {}
+        promedio_grupo_control = promedios_por_grupo[grupo_control]
+        for grupo in promedios_por_grupo.keys():
+            promedio = promedios_por_grupo[grupo]
+            factor_de_velocidad = promedio * 100 / promedio_grupo_control
+            comparativa_de_tiempo_por_grupo[grupo] = round(factor_de_velocidad, 3)
+        return comparativa_de_tiempo_por_grupo
 
     def promedio_primer_experimento(self):
         return self.promedios_por_grupo(self.res_exp1)
@@ -275,31 +285,20 @@ class Resultados:
     def promedio_segundo_experimento(self, filtrar_dos_rondas=False):
         return self.promedios_por_grupo(self.res_exp2, filtrar_dos_rondas)
 
-    def factor_de_velocidad(self, resultados, grupo_control=0):
-        # responde un diccionario grupo -> 
-        promedios_por_grupo = self.promedios_por_grupo(resultados)
-        factor_de_velocidad_por_grupo = {}
-        promedio_grupo_control = promedios_por_grupo[grupo_control]
-        for grupo in promedios_por_grupo.keys():
-            promedio = promedios_por_grupo[grupo]
-            factor_de_velocidad = promedio * 100 / promedio_grupo_control
-            factor_de_velocidad_por_grupo[grupo] = round(factor_de_velocidad, 3)
-        return factor_de_velocidad_por_grupo
-
-    def tiempos_por_grupo(self, resultados):
+    def tiempos_por_grupo(self, resultados, filtrar_dos_rondas=False):
         tiempos_por_grupo = defaultdict(list)
         for resultado in resultados:
             if resultado == "Descanso":
                 continue
             correcto, grupo, cartas, tiempo = resultado
-            #if cartas == 'SO vs CB, CC vs RC, RE vs SC':
-            #    continue
+            if isinstance(cartas, Mano) and cartas.se_gano_en_la_segunda_ronda() and filtrar_dos_rondas:
+                continue
             if correcto == CORRECTO:
                 tiempos_por_grupo[grupo].append(tiempo)
         return tiempos_por_grupo
 
     def promedios_por_grupo(self, resultados, filtrar_dos_rondas=False):
-        tiempos_por_grupo = self.tiempos_por_grupo(resultados)
+        tiempos_por_grupo = self.tiempos_por_grupo(resultados, filtrar_dos_rondas)
         promedios_por_grupo = {}
         for grupo in tiempos_por_grupo.keys():
             total = sum(tiempos_por_grupo[grupo])
@@ -314,7 +313,7 @@ class Resultados:
             res.append(resultado)
         return self.promedios_por_grupo(res)
 
-    def promedio_segunda_tanda(self, resultados):
+    def promedio_otras_tandas(self, resultados):
         res = []
         paso_descanso = False
         for resultado in resultados:
@@ -335,7 +334,17 @@ class Resultados:
         return tiempos
 
     def usa_ucr(self):
-        return self.correctas_por_grupo(self.res_exp2)[1][0] < 6
+        return self.correctas_por_grupo(self.res_exp2)[1][0] <= 3
+        
+
+def exp1(rondas_especificas):
+    exp = Experimento1()
+    return exp.ejecutar(2, 25, rondas_especificas)
+    
+
+def exp2(manos_especificas):
+    exp = Experimento2()
+    return exp.ejecutar(4, 25, manos_especificas)
 
 
 def tomar_datos_y_correr_experimentos():
@@ -348,7 +357,6 @@ def tomar_datos_y_correr_experimentos():
             pass
     sujetos = os.listdir('resultados')
     sujetos.remove('pickle')
-    sujetos.remove('pickle2')
     if sujetos == []:
         _id = 0
     else:

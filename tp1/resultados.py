@@ -7,59 +7,80 @@ from matplotlib import pyplot
 from tp1 import *
 
 '''
-[resultado.preprocesar() for resultado in resultados]
-for resultado in resultados:
-    with open('resultados/pickle2/'+str(resultado._id), 'wb') as archivo:
-        pickle.dump(resultado, archivo, protocol=pickle.HIGHEST_PROTOCOL)
-
 for resultado in resultados:
     print(str(resultado._id) + " " + str(resultado.factor_de_velocidad(resultado.res_exp2)))
 
 for resultado in resultados:
     print(str(resultado._id) + " " + str(resultado.promedios_por_grupo(resultado.res_exp2)))
 '''
-
 '''
 pyplot.hist(resultados_grupo_control)
 pyplot.show()
 '''
 
-def ttest_comparativo(resultados, grupo_control, grupo_a_analizar, filtrar_ucr=True, misma_cant_cartas=True):
+def ttest_comparativo_tiempo(resultados, grupo_control, grupo_a_analizar, filtrar_dos_rondas):
     promedio_por_persona_grupo_control = {}
     promedio_por_persona_grupo_a_analizar = {}
-    for resultado in resultados:
-        # filtro los individuos que fallaron mas de 3 veces en las pruebas para ver si usaron el algoritmo UCR
-        if filtrar_ucr and resultado.usa_ucr():
-            continue
+    for sujeto in resultados:
         try:
-            promedio_grupo_control = resultado.promedio_segundo_experimento()[grupo_control]
-            promedio_grupo_a_analizar = resultado.promedio_segundo_experimento()[grupo_a_analizar]
+            promedio_grupo_control = sujeto.promedio_segundo_experimento(filtrar_dos_rondas=filtrar_dos_rondas)[grupo_control]
+            promedio_grupo_a_analizar = sujeto.promedio_segundo_experimento(filtrar_dos_rondas=filtrar_dos_rondas)[grupo_a_analizar]
         except KeyError:
             # el jugador fallo todas las manos de este grupo
             continue
-        promedio_por_persona_grupo_control[resultado._id] = promedio_grupo_control
-        promedio_por_persona_grupo_a_analizar[resultado._id] = promedio_grupo_a_analizar
+        promedio_por_persona_grupo_control[sujeto._id] = promedio_grupo_control
+        promedio_por_persona_grupo_a_analizar[sujeto._id] = promedio_grupo_a_analizar
 
     resultados_grupo_control = promedio_por_persona_grupo_control.values()
     resultados_grupo_a_analizar = promedio_por_persona_grupo_a_analizar.values()
-
+    if len(resultados_grupo_a_analizar) == 0:
+        return
     return ttest_rel(resultados_grupo_control, resultados_grupo_a_analizar)[1]  # p-value
 
-def significancia_grupos_manos(resultados):
-    for grupo in range(11):
-        if grupo == 3: continue     # no comparo con el mismo
-        pvalue =  ttest_comparativo(resultados, 3, grupo, True)
-        print(" " + str(grupo) + ": " + (str(pvalue) if pvalue < 0.05 else "NO SIGNIFICATIVO"))
 
-    print("No filtrando a nadie:")
-    for grupo in range(11):
-        if grupo == 3: continue     # no comparo con el mismo
-        pvalue =  ttest_comparativo(resultados, 3, grupo, False)
-        print(" " + str(grupo) + ": " + (str(pvalue) if pvalue < 0.05 else "NO SIGNIFICATIVO"))
+def ttest_comparativo_factor(resultados, grupo_control, grupo_a_analizar, filtrar_dos_rondas):
+    factor_por_persona_grupo_control = {}
+    factor_por_persona_grupo_a_analizar = {}
+    for sujeto in resultados:
+        try:
+            factor_grupo_control = sujeto.factor_de_velocidad_por_grupo(filtrar_dos_rondas=filtrar_dos_rondas)[grupo_control]
+            factor_grupo_a_analizar = sujeto.factor_de_velocidad_por_grupo(filtrar_dos_rondas=filtrar_dos_rondas)[grupo_a_analizar]
+        except KeyError:
+            # el jugador fallo todas las manos de este grupo
+            continue
+        factor_por_persona_grupo_control[sujeto._id] = factor_grupo_control
+        factor_por_persona_grupo_a_analizar[sujeto._id] = factor_grupo_a_analizar
 
+    resultados_grupo_control = []
+    resultados_grupo_a_analizar = []
+    for persona in factor_por_persona_grupo_control.keys():
+        # para mantener el orden
+        resultados_grupo_control.append(factor_por_persona_grupo_control[persona])
+        resultados_grupo_a_analizar.append(factor_por_persona_grupo_a_analizar[persona])
+    if len(resultados_grupo_a_analizar) == 0:
+        # filtrando tanto nos quedamos sin test
+        return
+    return ttest_rel(resultados_grupo_control, resultados_grupo_a_analizar)[1]  # p-value
 
-def factor_de_velocidad_por_grupo(resultados):
-    factor_de_velocidad_por_grupo = resultados.factor_de_velocidad_segundo_experimento
+def significancia_grupos_manos(resultados, funcion_de_ttest, cant_grupos=11, grupo_control=3, filtrar_dos_rondas=True):
+    non_ucr_users = [sujeto for sujeto in resultados if not sujeto.usa_ucr()]
+    ucr_users = [sujeto for sujeto in resultados if sujeto.usa_ucr()]
+
+    print("\tNo filtrando a nadie:")
+    imprimir_ttest_por_grupo(resultados, cant_grupos, grupo_control, funcion_de_ttest, filtrar_dos_rondas)
+
+    print("\tSolo gente que no usaba UCR (criterio: fallar 3 veces o menos en las pruebas para ver si usaba UCR):")
+    imprimir_ttest_por_grupo(non_ucr_users, cant_grupos, grupo_control, funcion_de_ttest, filtrar_dos_rondas)
+
+    print("\tY ahora solo usuarios de UCR:")
+    imprimir_ttest_por_grupo(ucr_users, cant_grupos, grupo_control, funcion_de_ttest, filtrar_dos_rondas)
+    
+def imprimir_ttest_por_grupo(resultados, cant_grupos, grupo_control, funcion_de_ttest, filtrar_dos_rondas):
+    for grupo in range(cant_grupos):
+        if grupo == grupo_control: continue     # no comparo con el mismo
+        pvalue =  funcion_de_ttest(resultados, grupo_control, grupo, filtrar_dos_rondas)
+        if pvalue is not None:
+            print("\t\t" + str(grupo) + ": " + (str(pvalue) if pvalue < 0.05 else "NO SIGNIFICATIVO"))
 
 def correctitud_por_mano(resultados):
     ## TODO
@@ -91,13 +112,32 @@ def promedio_por_mano(resultados):
 
 
 def main():
-    resultados_nombres = os.listdir('resultados/pickle2')
-    archivos = [open('resultados/pickle2/'+filename, 'rb') for filename in resultados_nombres]
+    resultados_nombres = os.listdir('resultados/pickle')
+    archivos = [open('resultados/pickle/'+filename, 'rb') for filename in resultados_nombres]
     resultados = [pickle.load(archivo) for archivo in archivos]
     [archivo.close() for archivo in archivos]
-    significancia_grupos_manos(resultados)
-    print(promedio_por_mano(resultados))
+    print("SOLO MANOS DE TRES RONDAS")
 
+    print("-Mirando tiempos absolutos")
+    significancia_grupos_manos(resultados, ttest_comparativo_tiempo, filtrar_dos_rondas=True)
+    print
+    print
+    print("-Mirando tiempos relativos (tiempo de la mano vs. tiempo promedio por ronda en el primer experimento)")
+    significancia_grupos_manos(resultados, ttest_comparativo_factor, filtrar_dos_rondas=True)
+    
+    print
+    print
+    print
+    print
+    
+    print("MANOS DE TRES Y DOS RONDAS")
+
+    print("-Mirando tiempos absolutos")
+    significancia_grupos_manos(resultados, ttest_comparativo_tiempo, filtrar_dos_rondas=False)
+    print
+    print
+    print("-Mirando tiempos relativos (tiempo de la mano vs. tiempo promedio por ronda en el primer experimento)")
+    significancia_grupos_manos(resultados, ttest_comparativo_factor, filtrar_dos_rondas=False)
 
 
 main()

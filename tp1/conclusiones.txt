@@ -1,30 +1,165 @@
-Conclusiones:
+Grupos: 
+        1 manos testigo de si mira la última o no
+        
+        2 manos "sencillas" que terminen en 2 rondas. 
+            Sencillas quiere deir con un claro ganador y todas las rondas carta alta vs baja. 
+            Idealmente Carta mejor o igual que un 2 vs más chota que un 2.
+            Hacerlas de 3 rondas que después el programa se ocupa de que la tercera se tape si no tiene sentido)
+
+        3 manos "sencillas" que terminen en 3 rondas  Idem.
+        
+        4 manos con pardas en: 1ra y 2da
+            Las rondas no pardadas con un ganador claro.
+
+        5 manos con pardas en 3ra:
+            Hipótesis: manos que si vas en orden son manos de 4 rondas.
+
+        6 manos con pardas en 1ra 2da y 3ra:
+            Hipótesis: manos que si vas en orden son manos de 4 rondas.
+
+        7 manos "peleadas" todas con figuras.
+            todas menores a 2
+
+        8 manos con 7 falsos
+
+        9 manos con 1 falsos
+
+        10 manos en donde el que perdió tenía una carta > 3.
+
+
+Resultados:
 =============
-
-Comparando todas contra todas (manos de 3 rondas y de 2 rondas indistintamente)
-
-	Filtrando gente que fallaba más de 3 veces en las pruebas para ver si usaba UCR:
-	    0: 0.0101330693595
-	    1: NO SIGNIFICATIVO
-	    2: 6.8289348175e-09
-	    4: NO SIGNIFICATIVO
-	    5: 0.00427645412847
-	    6: NO SIGNIFICATIVO
-	    7: 0.0435052791024
-	    8: NO SIGNIFICATIVO
-	    9: NO SIGNIFICATIVO
-	    10: 0.00662300725634
+SOLO MANOS DE TRES RONDAS
+-Mirando tiempos absolutos
 	No filtrando a nadie:
-	    0: 0.00974781165918
-	    1: 0.00391059537101
-	    2: 7.04760065741e-09
-	    4: NO SIGNIFICATIVO
-	    5: 0.00102856619101
-	    6: 0.0169360993138
-	    7: NO SIGNIFICATIVO
-	    8: NO SIGNIFICATIVO
-	    9: NO SIGNIFICATIVO
-	    10: 0.00395127677081
+		0: 0.033524864859
+		4: NO SIGNIFICATIVO
+		5: 0.000748101211119
+		6: 0.0118593519347
+		7: NO SIGNIFICATIVO
+		8: NO SIGNIFICATIVO
+		9: NO SIGNIFICATIVO
+		10: 0.00274760144802
+	Solo gente que no usaba UCR (criterio: fallar 3 veces o menos en las pruebas para ver si usaba UCR):
+		0: NO SIGNIFICATIVO
+		4: NO SIGNIFICATIVO
+		5: 0.0068172266294
+		6: NO SIGNIFICATIVO
+		7: NO SIGNIFICATIVO
+		8: NO SIGNIFICATIVO
+		9: NO SIGNIFICATIVO
+		10: 0.00173813974474
+	Y ahora solo usuarios de UCR:
+		0: NO SIGNIFICATIVO
+		4: NO SIGNIFICATIVO
+		5: 0.00366831073519
+		6: 0.00306891484597
+		7: NO SIGNIFICATIVO
+		8: NO SIGNIFICATIVO
+		9: NO SIGNIFICATIVO
+		10: NO SIGNIFICATIVO
 
 
-Comparando solo manos de 3 rondas 
+-Mirando tiempos relativos (tiempo de la mano vs. tiempo promedio por ronda en el primer experimento)
+	No filtrando a nadie:
+		0: 0.022988536005
+		4: NO SIGNIFICATIVO
+		5: 0.000171774662457
+		6: 0.0152336029874
+		7: NO SIGNIFICATIVO
+		8: NO SIGNIFICATIVO
+		9: NO SIGNIFICATIVO
+		10: 0.00633159820034
+	Solo gente que no usaba UCR (criterio: fallar 3 veces o menos en las pruebas para ver si usaba UCR):
+		0: NO SIGNIFICATIVO
+		4: NO SIGNIFICATIVO
+		5: 0.00376057349064
+		6: NO SIGNIFICATIVO
+		7: NO SIGNIFICATIVO
+		8: NO SIGNIFICATIVO
+		9: NO SIGNIFICATIVO
+		10: 0.0023248806494
+	Y ahora solo usuarios de UCR:
+		0: NO SIGNIFICATIVO
+		4: NO SIGNIFICATIVO
+		5: 0.00445574401718
+		6: 0.00227190563285
+		7: NO SIGNIFICATIVO
+		8: NO SIGNIFICATIVO
+		9: NO SIGNIFICATIVO
+		10: NO SIGNIFICATIVO
+
+
+
+
+MANOS DE TRES Y DOS RONDAS
+-Mirando tiempos absolutos
+	No filtrando a nadie:
+		0: 0.0178625538257
+		1: 0.00312965261098
+		2: 3.21745061528e-09
+		4: NO SIGNIFICATIVO
+		5: 0.000748101211119
+		6: 0.0118593519347
+		7: NO SIGNIFICATIVO
+		8: NO SIGNIFICATIVO
+		9: NO SIGNIFICATIVO
+		10: 0.00274760144802
+	Solo gente que no usaba UCR (criterio: fallar 3 veces o menos en las pruebas para ver si usaba UCR):
+		0: 0.0118100707591
+		1: NO SIGNIFICATIVO
+		2: 2.79967271598e-10
+		4: NO SIGNIFICATIVO
+		5: 0.0068172266294
+		6: NO SIGNIFICATIVO
+		7: NO SIGNIFICATIVO
+		8: NO SIGNIFICATIVO
+		9: NO SIGNIFICATIVO
+		10: 0.00173813974474
+	Y ahora solo usuarios de UCR:
+		0: NO SIGNIFICATIVO
+		1: 0.0084245395173
+		2: NO SIGNIFICATIVO
+		4: NO SIGNIFICATIVO
+		5: 0.00366831073519
+		6: 0.00306891484597
+		7: NO SIGNIFICATIVO
+		8: NO SIGNIFICATIVO
+		9: NO SIGNIFICATIVO
+		10: NO SIGNIFICATIVO
+
+
+-Mirando tiempos relativos (tiempo de la mano vs. tiempo promedio por ronda en el primer experimento)
+	No filtrando a nadie:
+		0: 0.00980031974192
+		1: 0.00144167267855
+		2: 2.47077791382e-10
+		4: NO SIGNIFICATIVO
+		5: 0.000171774662457
+		6: 0.0152336029874
+		7: NO SIGNIFICATIVO
+		8: NO SIGNIFICATIVO
+		9: NO SIGNIFICATIVO
+		10: 0.00633159820034
+	Solo gente que no usaba UCR (criterio: fallar 3 veces o menos en las pruebas para ver si usaba UCR):
+		0: 0.00417884781975
+		1: 0.0436715454269
+		2: 7.67101837534e-12
+		4: NO SIGNIFICATIVO
+		5: 0.00376057349064
+		6: NO SIGNIFICATIVO
+		7: NO SIGNIFICATIVO
+		8: NO SIGNIFICATIVO
+		9: NO SIGNIFICATIVO
+		10: 0.0023248806494
+	Y ahora solo usuarios de UCR:
+		0: NO SIGNIFICATIVO
+		1: 0.00263515686465
+		2: NO SIGNIFICATIVO
+		4: NO SIGNIFICATIVO
+		5: 0.00445574401718
+		6: 0.00227190563285
+		7: NO SIGNIFICATIVO
+		8: NO SIGNIFICATIVO
+		9: NO SIGNIFICATIVO
+		10: NO SIGNIFICATIVO
