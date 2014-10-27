@@ -62,3 +62,14 @@ Hemos podido observar en primer lugar que los participantes tardaban un tiempo m
 Adicionalmente también observamos que tardan un tiempo superior para las manos que tienen una parda en la 3ra ronda, lo que nos permitiría suponer que los jugadores recorren con la vista cada ronda de una en una y teniendo que volver a mirar la primera ronda cuando llegan a la tercera y detectan la parda.
 
 Adicionalmente y lo más interesante, hemos observado una reticencia de los participantes a aceptar que un jugador que tenía alguna carta mayor a un 3 pudiera perder la mano.
+
+Observamos, sin embargo, que colocar cartas de aspecto gráfico parecido (e.g. todas figuras) no afecta significativamente el tiempo de respuesta. 
+
+
+Observaciones:
+==============
+Algunas de nuestras manos ideadas por nosotros no eran manos creibles, es decir, nadie en su sano juicio hubiera jugado así.
+
+
+
+
