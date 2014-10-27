@@ -52,7 +52,6 @@ Consideraciones preeliminares:
 Una de las primeras cosas que hemos querido detectar es si los jugadores, al tratarse de un juego con reglas conocidas, aplicaban su conocimiento previo y comenzaban a mirar solamente la última ronda jugada. Esto sería posible considerando que en el truco si llega a jugar la 3er ronda, es porque las dos primeras fueron ganadas una por cada jugador.
 Para esto pusimos un grupo de manos especialmente seleccionadas donde si bien las dos primeras rondas las ganaba un jugador, la tercera ronda se mostraba igual y ganada por el otro, para "atrapar" a quienes fueran únicamente a mirar lo último que había descubierto.
 
-Otra de las cuestiones que nos parecieron significativas de analizar es si la diferencia entre las cartas 
 
 Conclusiones:
 ============
