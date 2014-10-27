@@ -38,7 +38,7 @@ También consideramos la posibilidad de que a mayor distancia de las cartas en l
 Diseño experimental:
 ==================
 Para este trabajo hemos realizado primeramente una etapa introductoria.
-En la misma se le mostraba un par de cartas y tenían que responder cual era la ganadora, si la de izquierda o la de la derecha. Contábamos cuanto tiempo tardaban en responder y si la respuesta era o no correcta.
+En la misma se le mostraba un par de cartas y tenían que responder cual era la ganadora, si la de izquierda o la de la derecha. Contábamos cuanto tiempo ztardaban en responder y si la respuesta era o no correcta.
 Esto lo hicimos con XX series de 25 pares de cartas cada uno.
 
 Luego de esto comenzamos con la etapa principal, donde se mostraban varias series de un juego completo de 3 pares de cartas.
@@ -55,10 +55,10 @@ Para esto pusimos un grupo de manos especialmente seleccionadas donde si bien la
 
 Conclusiones:
 ============
-Por lo anteriormente mencionado, hemos descartado de nuestros análisis a los jugadores que aplicaban el algoritmo anteriormente descripto para más de 4 manos diferentes.
+Por lo anteriormente mencionado, hemos descartado de nuestros análisis a los participantes que aplicaban el algoritmo anteriormente descripto para más de 4 manos diferentes.
 
-Hemos podido observar en primer lugar que los jugadores tardaban un tiempo menor en las manos que duran 2 rondas comparandolos con las que duran 3 rondas.
+Hemos podido observar en primer lugar que los participantes tardaban un tiempo menor en las manos que duran 2 rondas comparandolos con las que duran 3 rondas.
 
 Adicionalmente también observamos que tardan un tiempo superior para las manos que tienen una parda en la 3ra ronda, lo que nos permitiría suponer que los jugadores recorren con la vista cada ronda de una en una y teniendo que volver a mirar la primera ronda cuando llegan a la tercera y detectan la parda.
 
-Adicionalmente y lo más interesante, hemos observado una reticencia de los jugadores a aceptar que un jugador que tenía alguna carta mayor a un 3 pudiera perder la mano.
+Adicionalmente y lo más interesante, hemos observado una reticencia de los participantes a aceptar que un jugador que tenía alguna carta mayor a un 3 pudiera perder la mano.
