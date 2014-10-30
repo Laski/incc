@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import pickle
-from scipy.stats import ttest_rel
+from scipy.stats import ttest_rel, linregress
 from matplotlib import pyplot
 from tp1 import *
 
@@ -88,10 +88,10 @@ def correctitud_por_mano(resultados):
 
 def promedio_por_mano(resultados):
     tiempos = {}
-    for resultado in resultados:
-        if resultado.usa_ucr():
+    for sujeto in resultados:
+        if sujeto.usa_ucr():
             continue
-        tiempos[resultado._id] = resultado.tiempos_por_ronda(resultado.res_exp2, 0)
+        tiempos[sujeto._id] = sujeto.tiempos_por_ronda(sujeto.res_exp2, 0)
     promedios_por_mano = []
     cantidad_sujetos = len(tiempos)
     for num_mano in range(1000):   # me paso, lo voy a cortar antes
@@ -110,12 +110,65 @@ def promedio_por_mano(resultados):
         promedios_por_mano.append(sum(todos) / cantidad_sujetos)
     return promedios_por_mano
 
+def promedio_factores_de_velocidad(resultados):
+    factores_de_velocidad_por_grupo = defaultdict(list)
+    for sujeto in resultados:
+        if sujeto.usa_ucr():
+            continue
+        factores = sujeto.factor_de_velocidad_por_grupo()
+        for grupo in range(11):
+            try:
+                factores_de_velocidad_por_grupo[grupo].append(factores[grupo])
+            except KeyError:
+                pass
+    promedios = {}
+    for grupo in range(11):
+        promedios[grupo] = sum(factores_de_velocidad_por_grupo[grupo]) / len(factores_de_velocidad_por_grupo[grupo])
+    return promedios
+
+def promedio_tiempos_por_grupo(resultados):
+    tiempos_por_grupo = defaultdict(list)
+    for sujeto in resultados:
+        if sujeto.usa_ucr():
+            continue
+        tiempos = sujeto.promedio_segundo_experimento()
+        for grupo in range(11):
+            try:
+                tiempos_por_grupo[grupo].append(tiempos[grupo])
+            except KeyError:
+                pass
+    promedios = {}
+    for grupo in range(11):
+        promedios[grupo] = sum(tiempos_por_grupo[grupo]) / len(tiempos_por_grupo[grupo])
+    return promedios
+
+def promedio_primer_tanda(resultados):
+    tiempos = []
+    for sujeto in resultados:
+        tiempos_sujeto = sujeto.promedio_primer_experimento()
+        for grupo in range(5):
+            try:
+                tiempos.append(tiempos_sujeto[grupo])
+            except KeyError:
+                pass
+    return sum(tiempos) / len(tiempos)
+
 
 def main():
     resultados_nombres = os.listdir('resultados/pickle')
     archivos = [open('resultados/pickle/'+filename, 'rb') for filename in resultados_nombres]
     resultados = [pickle.load(archivo) for archivo in archivos]
     [archivo.close() for archivo in archivos]
+
+    promedios = promedio_tiempos_por_grupo(resultados)
+    factores_relevantes = [promedio_primer_tanda(resultados), promedios[2], promedios[3], promedios[5]]
+    print(linregress([1, 2, 3, 4], factores_relevantes))
+
+    promedios = promedio_factores_de_velocidad(resultados)
+    factores_relevantes = [1, promedios[2], promedios[3], promedios[5]]
+    print(linregress([1, 2, 3, 4], factores_relevantes))
+
+
     print("SOLO MANOS DE TRES RONDAS")
 
     print("-Mirando tiempos absolutos")
