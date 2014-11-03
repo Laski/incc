@@ -1,8 +1,9 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
+from __future__ import division
 import os
 import pickle
-from scipy.stats import ttest_rel, linregress
+from scipy.stats import ttest_rel, linregress, wilcoxon
 from matplotlib import pyplot
 from tp1 import *
 
@@ -25,8 +26,7 @@ def ttest_comparativo_tiempo(resultados, grupo_control, grupo_a_analizar, filtra
     if len(resultados_grupo_a_analizar) == 0:
         return
     return ttest_rel(resultados_grupo_control, resultados_grupo_a_analizar)
-
-
+    
 def ttest_comparativo_factor(resultados, grupo_control, grupo_a_analizar, filtrar_dos_rondas):
     factor_por_persona_grupo_control = {}
     factor_por_persona_grupo_a_analizar = {}
@@ -157,6 +157,20 @@ def promedio_primer_tanda(resultados):
     return sum(tiempos) / len(tiempos)
 
 
+def correctitud_por_grupo(resultados):
+    correctas = defaultdict(int)
+    totales = defaultdict(int)
+    for sujeto in resultados:
+        correctas_sujeto = sujeto.correctas_por_grupo(sujeto.res_exp2)
+        for grupo in correctas_sujeto.keys():
+            correctas[grupo] += correctas_sujeto[grupo][0]
+            totales[grupo] += correctas_sujeto[grupo][1]
+    porcentajes = {}
+    for grupo in totales.keys():
+        porcentajes[grupo] = 100 * (correctas[grupo] / totales[grupo])
+    return porcentajes
+
+
 def tiempos_totales(resultados, grupo, filtrar_ucr, solo_ucr, filtrar_dos_rondas):
     res = []
     for sujeto in resultados:
@@ -199,6 +213,8 @@ def main():
     resultados = [pickle.load(archivo) for archivo in archivos]
     [archivo.close() for archivo in archivos]
 
+    print(correctitud_por_grupo(resultados))
+
     plotear_promedio_por_mano(resultados)
     histogramas_comparativos(resultados, 2, 3, filtrar_dos_rondas=False)
     histogramas_comparativos(resultados, 5, 3)
@@ -218,8 +234,8 @@ def main():
     significancia_grupos_manos(resultados, ttest_comparativo_tiempo, filtrar_dos_rondas=True)
     print
     print
-    print("-Mirando tiempos relativos (tiempo de la mano vs. tiempo promedio por ronda en el primer experimento)")
-    significancia_grupos_manos(resultados, ttest_comparativo_factor, filtrar_dos_rondas=True)
+    #print("-Mirando tiempos relativos (tiempo de la mano vs. tiempo promedio por ronda en el primer experimento)")
+    #significancia_grupos_manos(resultados, ttest_comparativo_factor, filtrar_dos_rondas=True)
     
     print
     print
@@ -232,8 +248,8 @@ def main():
     significancia_grupos_manos(resultados, ttest_comparativo_tiempo, filtrar_dos_rondas=False)
     print
     print
-    print("-Mirando tiempos relativos (tiempo de la mano vs. tiempo promedio por ronda en el primer experimento)")
-    significancia_grupos_manos(resultados, ttest_comparativo_factor, filtrar_dos_rondas=False)
+    #print("-Mirando tiempos relativos (tiempo de la mano vs. tiempo promedio por ronda en el primer experimento)")
+    #significancia_grupos_manos(resultados, ttest_comparativo_factor, filtrar_dos_rondas=False)
 
 
 main()
