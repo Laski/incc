@@ -285,16 +285,27 @@ class Resultados:
     def promedio_segundo_experimento(self, filtrar_dos_rondas=False):
         return self.promedios_por_grupo(self.res_exp2, filtrar_dos_rondas)
 
+    def tiempos_primer_experimento(self):
+        return self.tiempos_por_grupo(self.res_exp1)
+
+    def tiempos_segundo_experimento(self, filtrar_dos_rondas=False):
+        return self.tiempos_por_grupo(self.res_exp2, filtrar_dos_rondas)
+
     def tiempos_por_grupo(self, resultados, filtrar_dos_rondas=False):
         tiempos_por_grupo = defaultdict(list)
+        descarte = 0
         for resultado in resultados:
-            if resultado == "Descanso":
+            if resultado == "Descanso" or descarte < 3:
+                descarte += 1
                 continue
             correcto, grupo, cartas, tiempo = resultado
             if isinstance(cartas, Mano) and cartas.se_gano_en_la_segunda_ronda() and filtrar_dos_rondas:
                 continue
             if correcto == CORRECTO:
-                tiempos_por_grupo[grupo].append(tiempo)
+                if isinstance(cartas, Ronda) and grupo == 0:
+                    tiempos_por_grupo[cartas.inventar_grupo()].append(tiempo)
+                else:
+                    tiempos_por_grupo[grupo].append(tiempo)
         return tiempos_por_grupo
 
     def promedios_por_grupo(self, resultados, filtrar_dos_rondas=False):

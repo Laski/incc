@@ -6,17 +6,6 @@ from scipy.stats import ttest_rel, linregress
 from matplotlib import pyplot
 from tp1 import *
 
-'''
-for resultado in resultados:
-    print(str(resultado._id) + " " + str(resultado.factor_de_velocidad(resultado.res_exp2)))
-
-for resultado in resultados:
-    print(str(resultado._id) + " " + str(resultado.promedios_por_grupo(resultado.res_exp2)))
-'''
-'''
-pyplot.hist(resultados_grupo_control)
-pyplot.show()
-'''
 
 def ttest_comparativo_tiempo(resultados, grupo_control, grupo_a_analizar, filtrar_dos_rondas):
     promedio_por_persona_grupo_control = {}
@@ -35,7 +24,7 @@ def ttest_comparativo_tiempo(resultados, grupo_control, grupo_a_analizar, filtra
     resultados_grupo_a_analizar = promedio_por_persona_grupo_a_analizar.values()
     if len(resultados_grupo_a_analizar) == 0:
         return
-    return ttest_rel(resultados_grupo_control, resultados_grupo_a_analizar)[1]  # p-value
+    return ttest_rel(resultados_grupo_control, resultados_grupo_a_analizar)
 
 
 def ttest_comparativo_factor(resultados, grupo_control, grupo_a_analizar, filtrar_dos_rondas):
@@ -60,9 +49,10 @@ def ttest_comparativo_factor(resultados, grupo_control, grupo_a_analizar, filtra
     if len(resultados_grupo_a_analizar) == 0:
         # filtrando tanto nos quedamos sin test
         return
-    return ttest_rel(resultados_grupo_control, resultados_grupo_a_analizar)[1]  # p-value
+    return ttest_rel(resultados_grupo_control, resultados_grupo_a_analizar)
 
-def significancia_grupos_manos(resultados, funcion_de_ttest, cant_grupos=11, grupo_control=3, filtrar_dos_rondas=True):
+
+def significancia_grupos_manos(resultados, funcion_de_ttest, cant_grupos=10, grupo_control=3, filtrar_dos_rondas=True):
     non_ucr_users = [sujeto for sujeto in resultados if not sujeto.usa_ucr()]
     ucr_users = [sujeto for sujeto in resultados if sujeto.usa_ucr()]
 
@@ -75,16 +65,18 @@ def significancia_grupos_manos(resultados, funcion_de_ttest, cant_grupos=11, gru
     print("\tY ahora solo usuarios de UCR:")
     imprimir_ttest_por_grupo(ucr_users, cant_grupos, grupo_control, funcion_de_ttest, filtrar_dos_rondas)
     
-def imprimir_ttest_por_grupo(resultados, cant_grupos, grupo_control, funcion_de_ttest, filtrar_dos_rondas):
-    for grupo in range(cant_grupos):
-        if grupo == grupo_control: continue     # no comparo con el mismo
-        pvalue =  funcion_de_ttest(resultados, grupo_control, grupo, filtrar_dos_rondas)
-        if pvalue is not None:
-            print("\t\t" + str(grupo) + ": " + (str(pvalue) if pvalue < 0.05 else "NO SIGNIFICATIVO"))
 
-def correctitud_por_mano(resultados):
-    ## TODO
-    pass
+def imprimir_ttest_por_grupo(resultados, cant_grupos, grupo_control, funcion_de_ttest, filtrar_dos_rondas):
+    for grupo in range(cant_grupos+1):
+        if grupo == grupo_control: continue     # no comparo con el mismo
+        res_ttest = funcion_de_ttest(resultados, grupo_control, grupo, filtrar_dos_rondas)
+        if res_ttest is not None:
+            print("\t\t" + str(grupo) + ": "),
+            if res_ttest[1] > 0.05:
+                print("NO SIGNIFICATIVO: \t" + str(res_ttest[1]))
+            else:
+                print(("MÁS RÁPIDO: \t\t" if res_ttest[0] > 0 else "MÁS LENTO: \t\t\t") + str(res_ttest[1]))
+
 
 def promedio_por_mano(resultados):
     tiempos = {}
@@ -110,6 +102,15 @@ def promedio_por_mano(resultados):
         promedios_por_mano.append(sum(todos) / cantidad_sujetos)
     return promedios_por_mano
 
+def plotear_promedio_por_mano(resultados):
+    tiempos = promedio_por_mano(resultados)
+    pyplot.clf()
+    pyplot.plot(tiempos)
+    pyplot.xlabel(u"Número de mano")
+    pyplot.ylabel("Tiempo de respuesta (segundos)")
+    pyplot.savefig("informe/tiempo_por_mano")
+
+
 def promedio_factores_de_velocidad(resultados):
     factores_de_velocidad_por_grupo = defaultdict(list)
     for sujeto in resultados:
@@ -125,6 +126,7 @@ def promedio_factores_de_velocidad(resultados):
     for grupo in range(11):
         promedios[grupo] = sum(factores_de_velocidad_por_grupo[grupo]) / len(factores_de_velocidad_por_grupo[grupo])
     return promedios
+
 
 def promedio_tiempos_por_grupo(resultados):
     tiempos_por_grupo = defaultdict(list)
@@ -142,6 +144,7 @@ def promedio_tiempos_por_grupo(resultados):
         promedios[grupo] = sum(tiempos_por_grupo[grupo]) / len(tiempos_por_grupo[grupo])
     return promedios
 
+
 def promedio_primer_tanda(resultados):
     tiempos = []
     for sujeto in resultados:
@@ -154,19 +157,59 @@ def promedio_primer_tanda(resultados):
     return sum(tiempos) / len(tiempos)
 
 
+def tiempos_totales(resultados, grupo, filtrar_ucr, solo_ucr, filtrar_dos_rondas):
+    res = []
+    for sujeto in resultados:
+        if filtrar_ucr and sujeto.usa_ucr():
+            continue
+        if solo_ucr and not sujeto.usa_ucr():
+            continue
+        res += sujeto.tiempos_segundo_experimento(filtrar_dos_rondas)[grupo]
+    return res
+
+def histogramas_comparativos(resultados, grupo_1, grupo_2=3, solo_ucr=False, filtrar_ucr=True, filtrar_dos_rondas=True):
+    if solo_ucr: filtrar_ucr = False
+    tiempos_grupo_1 = tiempos_totales(resultados, grupo_1, filtrar_ucr, solo_ucr,  filtrar_dos_rondas)
+    tiempos_grupo_2 = tiempos_totales(resultados, grupo_2, filtrar_ucr, solo_ucr, filtrar_dos_rondas)
+
+    bins = [i*0.25 for i in range(60)] if not solo_ucr else [i*0.1 for i in range(50)]
+
+    pyplot.clf()
+    pyplot.hist(tiempos_grupo_1, bins=bins, alpha=1, label="Grupo de test", normed=True, color='r')
+    pyplot.hist(tiempos_grupo_2, bins=bins, alpha=0.5, label="Grupo control", normed=True, color='b')
+    pyplot.legend(loc='upper right')
+    pyplot.xlabel("Tiempo de respuesta (segundos)")
+    pyplot.savefig("informe/"+str(grupo_1)+"vs"+str(grupo_2)+("ucr" if solo_ucr else ""))
+
+def regresion_lineal(y):
+    x = [1, 2, 3, 4]
+    slope, intercept, r_value, p_value, std_err = linregress(x, y)
+    print(linregress(x, y))
+    line = slope*x+intercept
+    pyplot.clf()
+    pyplot.plot(x, line, 'r-', x, y, 'bo-')
+    pyplot.ylabel("Tiempo de respuesta (segundos)")
+    pyplot.xlabel("Cantidad de rondas a mirar (estimada)")
+    pyplot.savefig("informe/lineal")    
+
+
 def main():
     resultados_nombres = os.listdir('resultados/pickle')
     archivos = [open('resultados/pickle/'+filename, 'rb') for filename in resultados_nombres]
     resultados = [pickle.load(archivo) for archivo in archivos]
     [archivo.close() for archivo in archivos]
 
+    plotear_promedio_por_mano(resultados)
+    histogramas_comparativos(resultados, 2, 3, filtrar_dos_rondas=False)
+    histogramas_comparativos(resultados, 5, 3)
+    histogramas_comparativos(resultados, 10, 3)
+    histogramas_comparativos(resultados, 5, 3, solo_ucr=True)
+    histogramas_comparativos(resultados, 6, 3, solo_ucr=True)
+
+
     promedios = promedio_tiempos_por_grupo(resultados)
     factores_relevantes = [promedio_primer_tanda(resultados), promedios[2], promedios[3], promedios[5]]
-    print(linregress([1, 2, 3, 4], factores_relevantes))
-
-    promedios = promedio_factores_de_velocidad(resultados)
-    factores_relevantes = [1, promedios[2], promedios[3], promedios[5]]
-    print(linregress([1, 2, 3, 4], factores_relevantes))
+    regresion_lineal(factores_relevantes)
 
 
     print("SOLO MANOS DE TRES RONDAS")

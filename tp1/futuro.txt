@@ -3,4 +3,5 @@ Impresiones que no llegamos a analizar estadísticamente.
 1.- La gente cuando responde mal se toma más tiempo inmediatamente después.
 2.- La gente bajo los efectos de C2H6O.
 3.- Hay gente que usa UCR hasta que le dan el primer feedback.
-4.- 
+4.- Ver qué tipo de manos tienen más errores.
+5.- Ver qué cartas altas específicamente hacen que tome más tiempo determinar al ganador (grupo 10)

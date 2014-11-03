@@ -49,7 +49,16 @@ class Carta:
                 return fuerza
         raise ValueError("No soy una carta válida")
 
-      # las cartas son comparables
+    @property
+    def categoria(self):
+        if self in CARTAS_BAJAS:
+            return "BAJA"
+        if self in CARTAS_MEDIAS:
+            return "MEDIA"
+        if self in CARTAS_ALTAS:
+            return "ALTA"    
+
+    # las cartas son comparables
     def __eq__(self, other):
         return self.valor == other.valor and self.palo == other.palo
     def __ne__(self, other):
@@ -78,9 +87,10 @@ SIETE_ORO       = [Carta(7, 'O')]
 SIETE_ESPADA    = [Carta(7, 'E')]
 ANCHO_BASTO     = [Carta(1, 'B')]
 ANCHO_ESPADA    = [Carta(1, 'E')]
-CARTAS_BAJAS    = [CUATROS, CINCOS, SEIS, SIETES_FALSOS]
-CARTAS_MEDIAS   = [SOTAS, CABALLOS, REYES, ANCHOS_FALSOS]
-CARTAS_ALTAS    = [DOS, TRES, SIETE_ORO, SIETE_ESPADA, ANCHO_BASTO, ANCHO_ESPADA]
+CARTAS_BAJAS    = CUATROS + CINCOS + SEIS + SIETES_FALSOS
+CARTAS_MEDIAS   = SOTAS + CABALLOS + REYES + ANCHOS_FALSOS
+CARTAS_FIGURAS  = SOTAS + CABALLOS + REYES
+CARTAS_ALTAS    = DOS + TRES + SIETE_ORO + SIETE_ESPADA + ANCHO_BASTO + ANCHO_ESPADA
 CARTAS_EN_ORDEN = [CUATROS, CINCOS, SEIS, SIETES_FALSOS, SOTAS, CABALLOS, REYES, ANCHOS_FALSOS, DOS, TRES, SIETE_ORO, SIETE_ESPADA, ANCHO_BASTO, ANCHO_ESPADA]
 
 
@@ -117,6 +127,26 @@ class Ronda:
 
     def __str__(self):
         return str(self.carta_izq) + " vs " + str(self.carta_der)
+
+    def sirve_de_control(self):
+        return self.carta_izq.categoria != self.carta_der.categoria
+
+    def inventar_grupo(self):
+        if self.carta_izq in ANCHO_ESPADA or self.carta_der in ANCHO_ESPADA:
+            return 1
+        if self.carta_izq in CARTAS_ALTAS and self.carta_der in CARTAS_ALTAS:
+            return 2
+        if self.carta_izq in CARTAS_FIGURAS and self.carta_der in CARTAS_FIGURAS:
+            return 3
+        if self.carta_izq in CARTAS_BAJAS and self.carta_der in CARTAS_BAJAS:
+            return 4
+        if self.carta_izq in ANCHOS_FALSOS or self.carta_der in ANCHOS_FALSOS:
+            return 6
+        if self.carta_izq in SIETES_FALSOS or self.carta_der in SIETES_FALSOS:
+            return 7
+        if self.sirve_de_control():
+            return 5
+        return 0
         
 
 class Mano:
